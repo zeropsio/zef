@@ -1,0 +1,14 @@
+@import 'theme';
+@import 'functions';
+
+@each $color-name, $color-code in $colors {
+  @if not map-has-key($colors, $color-name) {
+    @warn "'#{$color-name}' is not a valid icon name";
+  }
+
+  @else {
+    .u-color--#{$color-name} {
+      color: color($color-name);
+    }
+  }
+}

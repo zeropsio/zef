@@ -1,0 +1,15 @@
+<ng-content></ng-content>
+
+<zef-fade-animation
+  [animationState]="active"
+  [animationParams]="{
+    enterDuration: '700ms',
+    leaveDuration: '700ms',
+    easing: 'ease-out'
+  }">
+  <mat-progress-bar
+    *ngIf="active"
+    class="__progress"
+    mode="buffer">
+  </mat-progress-bar>
+</zef-fade-animation>

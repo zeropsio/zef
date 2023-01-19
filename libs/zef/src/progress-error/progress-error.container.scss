@@ -1,0 +1,43 @@
+:host {
+  display: inline-block;
+
+  &.is-full {
+    width: 100%;
+
+    .__button-progress {
+      width: 100%;
+    }
+  }
+}
+
+  .__button-progress {
+    &.is-disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    &.has-errors {
+      &::ng-deep {
+        .mat-button,
+        .mat-stroked-button,
+        .mat-raised-button,
+        .mat-flat-button {
+          background-color: #CC0011 !important;
+          color: #fff !important;
+        }
+      }
+    }
+
+    &::ng-deep {
+      .mat-button,
+      .mat-stroked-button,
+      .mat-raised-button,
+      .mat-flat-button {
+        transition: background 300ms;
+      }
+
+      .mat-button-wrapper {
+        transition: color 300ms;
+      }
+    }
+  }

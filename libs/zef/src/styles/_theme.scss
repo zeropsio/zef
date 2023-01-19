@@ -1,0 +1,245 @@
+@use '@angular/material' as mat;
+
+$zeropsAlphaColor: (
+  100: #00CCBB,
+  500: #00CCBB,
+  700: #00CCBB,
+  contrast: (
+    100: #fff,
+    500: #fff,
+    700: #fff
+  )
+);
+
+$zeropsBetaColor: (
+  100: #e3ce35,
+  500: #e3ce35,
+  700: #e3ce35,
+  contrast: (
+    100: #000,
+    500: #000,
+    700: #000,
+  )
+);
+
+$zeropsGammaColor: (
+  100: #0077CC,
+  500: #0077CC,
+  700: #0077CC,
+  contrast: (
+    100: #fff,
+    500: #fff,
+    700: #fff
+  )
+);
+
+$appThemePrimary: mat.define-palette($zeropsAlphaColor);
+$appThemeAccent: mat.define-palette($zeropsGammaColor);
+$appThemeWarn: mat.define-palette(mat.$red-palette);
+
+$appTheme: mat.define-light-theme((
+  color: (
+    primary: $appThemePrimary,
+    accent: $appThemeAccent,
+    warn: $appThemeWarn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// font
+$fontMain: 'Roboto', sans-serif;
+$fontMono: 'Roboto Mono', monospace;
+
+// color
+$colors: (
+  // background: #f1f1f1,
+  background: #eceff3,
+  identityAlpha: #00CCBB,
+  identityBlack: #1A1A1A,
+  identityRed: #CC0011,
+  identityBlue: #0077CC,
+  identityGreen: #00CC55,
+  identityPurple: #CC0077,
+  identityPink: #BB00CC,
+  metricCpu: mat.get-color-from-palette(mat.$blue-palette, 500),
+  metricRam: mat.get-color-from-palette(mat.$teal-palette, 600),
+  metricRamdisk: mat.get-color-from-palette(mat.$green-palette, 200),
+  metricDisc: mat.get-color-from-palette(mat.$pink-palette, 900),
+  warn: mat.get-color-from-palette(mat.$orange-palette, 400)
+);
+
+$backgrounds: (
+
+);
+
+$serviceStackStatusesColors: (
+  'NEW': mat.get-color-from-palette(mat.$blue-palette, 100),
+  'CREATING': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400),
+  'STOPPING': mat.get-color-from-palette(mat.$orange-palette, 200),
+  'STOPPED': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'STARTING': mat.get-color-from-palette(mat.$green-palette, 200),
+  'RESTARTING': mat.get-color-from-palette(mat.$grey-palette, 400),
+  'RELOADING': mat.get-color-from-palette(mat.$grey-palette, 200),
+  'DELETING': mat.get-color-from-palette(mat.$red-palette, 200),
+  'DELETED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'WAITING_TO_DEPLOY': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'READY_TO_DEPLOY': mat.get-color-from-palette(mat.$blue-palette, 300),
+  'UPGRADING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'ACTION_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'UPGRADE_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'REPAIRING': mat.get-color-from-palette(mat.$orange-palette, 300),
+  'CONTAINER_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'SCALING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'NEW_BUILD_PENDING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'ACTIVE_BUILD_PENDING': mat.get-color-from-palette(mat.$green-palette, 200),
+  'NEW_BUILD_RUNNING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'ACTIVE_BUILD_RUNNING': mat.get-color-from-palette(mat.$green-palette, 200),
+  'NEW_AND_INSTALLING': mat.get-color-from-palette(mat.$blue-palette, 300)
+);
+
+$serviceStackStatusesRippleColors: (
+  'NEW': mat.get-color-from-palette(mat.$blue-palette, 100),
+  'CREATING': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400),
+  'STOPPING': mat.get-color-from-palette(mat.$orange-palette, 200),
+  'STOPPED': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'STARTING': mat.get-color-from-palette(mat.$green-palette, 200),
+  'RESTARTING': mat.get-color-from-palette(mat.$grey-palette, 400),
+  'RELOADING': mat.get-color-from-palette(mat.$grey-palette, 200),
+  'DELETING': mat.get-color-from-palette(mat.$red-palette, 200),
+  'DELETED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'WAITING_TO_DEPLOY': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'READY_TO_DEPLOY': mat.get-color-from-palette(mat.$blue-palette, 300),
+  'UPGRADING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'ACTION_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'UPGRADE_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'REPAIRING': mat.get-color-from-palette(mat.$orange-palette, 300),
+  'CONTAINER_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'SCALING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'NEW_BUILD_PENDING': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'ACTIVE_BUILD_PENDING': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'NEW_BUILD_RUNNING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'ACTIVE_BUILD_RUNNING': mat.get-color-from-palette(mat.$blue-palette, 400)
+);
+
+$projectStatusesColors: (
+  'NEW': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'CREATING': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400),
+  'DELETING': mat.get-color-from-palette(mat.$red-palette, 200),
+  'STOPPING': mat.get-color-from-palette(mat.$orange-palette, 200),
+  'STARTING': mat.get-color-from-palette(mat.$green-palette, 200),
+  'DELETED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'STOPPED': mat.get-color-from-palette(mat.$orange-palette, 400),
+);
+
+$clientStatusesColors: (
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400)
+);
+
+$paymentStatusesColors: (
+  'REQUESTED': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'PROCESSING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'PAYMENT_SUCCESS': mat.get-color-from-palette(mat.$green-palette, 300),
+  'PAYMENT_DECLINED': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'BALANCE_UPDATING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'BALANCE_UPDATED': mat.get-color-from-palette(mat.$green-palette, 200),
+  'INVOICING': mat.get-color-from-palette(mat.$blue-palette, 300),
+  'INVOICED': mat.get-color-from-palette(mat.$green-palette, 400),
+  'PAYMENT_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'BALANCE_UPDATE_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'INVOICING_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'FINISHED': mat.get-color-from-palette(mat.$green-palette, 200),
+  'PAYMENT_DECLINE_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'FAILED': mat.get-color-from-palette(mat.$red-palette, 400)
+);
+
+$containerStatusesColors: (
+  'CREATING': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400),
+  'DELETING': mat.get-color-from-palette(mat.$red-palette, 200),
+  'FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'ACTION_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'STOPPING': mat.get-color-from-palette(mat.$orange-palette, 200),
+  'STOPPED': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'STARTING': mat.get-color-from-palette(mat.$green-palette, 200),
+  'RESTARTING': mat.get-color-from-palette(mat.$grey-palette, 200),
+  'RELOADING': mat.get-color-from-palette(mat.$grey-palette, 200),
+  'MOVING': mat.get-color-from-palette(mat.$blue-palette, 300),
+  'UPGRADING': mat.get-color-from-palette(mat.$blue-palette, 300)
+);
+
+$notificationStatusesColors: (
+  'SUCCESS': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'ERROR': mat.get-color-from-palette(mat.$red-palette, 400),
+  'WARNING': mat.get-color-from-palette(mat.$grey-palette, 400)
+);
+
+$userDataSyncStatusesColors: (
+  'SYNCED': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'UNSYNCED': mat.get-color-from-palette(mat.$grey-palette, 200),
+  'BEING_DELETED': mat.get-color-from-palette(mat.$red-palette, 200)
+);
+
+$appVersionStatusesColors: (
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400),
+  'BACKUP': mat.get-color-from-palette(mat.$grey-palette, 400),
+  'UPLOADING': mat.get-color-from-palette(mat.$blue-palette, 400),
+  'DEPLOYING': mat.get-color-from-palette(mat.$blue-palette, 600),
+  'DEPLOY_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'BUILD_FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'BUILDING': mat.get-color-from-palette(mat.$blue-palette, 600),
+  'WAITING_TO_BUILD': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'WAITING_TO_DEPLOY': mat.get-color-from-palette(mat.$blue-palette, 200)
+);
+
+$processStatusesColors: (
+  'RUNNING': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'PENDING': mat.get-color-from-palette(mat.$grey-palette, 400),
+);
+
+$dnsCheckStatusesColors: (
+  'PENDING': mat.get-color-from-palette(mat.$grey-palette, 400),
+  'CHECKING': mat.get-color-from-palette(mat.$blue-palette, 200),
+  'OK': mat.get-color-from-palette(mat.$green-palette, 400),
+  'FAILED': mat.get-color-from-palette(mat.$red-palette, 400),
+  'IGNORED': mat.get-color-from-palette(mat.$grey-palette, 400)
+);
+
+$routingLocationStatusesColors: (
+  'ACTIVE': mat.get-color-from-palette(mat.$green-palette, 400),
+  'UNSYNCED': mat.get-color-from-palette(mat.$grey-palette, 400),
+  'NOT_ROUTED': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'STOPPED': mat.get-color-from-palette(mat.$orange-palette, 400),
+  'SSL_NOT_ACTIVE': mat.get-color-from-palette(mat.$orange-palette, 300),
+  'UNSYNCED_SSL_NOT_ACTIVE': mat.get-color-from-palette(mat.$grey-palette, 400)
+);
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulseFullReverse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "zef": "libs/zef",
     "zef-test-app": "apps/zef-test-app",
     "zef-test-app-e2e": "apps/zef-test-app-e2e"
   }

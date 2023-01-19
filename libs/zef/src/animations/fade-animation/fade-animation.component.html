@@ -1,0 +1,9 @@
+<div
+  class="__animation-wrap"
+  *ngIf="animationState"
+  [@fadeAnimation]="{
+    value: animationState,
+    params: animationParams
+  }">
+  <ng-content></ng-content>
+</div>

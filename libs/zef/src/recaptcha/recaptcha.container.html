@@ -1,0 +1,25 @@
+<zef-dialog [open]="state.isActive">
+  <div class="__recaptcha-wrap">
+
+    <div class="__loading" *ngIf="!state.isLoaded">
+      <mat-spinner
+        class="__spinner"
+        [diameter]="30">
+      </mat-spinner>
+    </div>
+
+    <ngx-recaptcha2
+      class="__recaptcha"
+      *ngIf="state.isActiveDelayed"
+      [formControl]="form"
+      [siteKey]="siteKey"
+      (expire)="handleExpire()"
+      (load)="onLoaded$.next(true)"
+      (success)="onResolve$.next($event)"
+      [useGlobalDomain]="false"
+      [size]="size"
+      [hl]="lang">
+    </ngx-recaptcha2>
+
+  </div>
+</zef-dialog>

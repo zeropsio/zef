@@ -1,0 +1,8 @@
+<zef-dialog
+  [paneClass]="'c-dialog-no-padding'"
+  [open]="isOpen$ | async">
+  <ng-template
+    [ngTemplateOutlet]="tpl"
+    [ngTemplateOutletContext]="{ data: (dialogErrorsDelayed$ | async) }">
+  </ng-template>
+</zef-dialog>

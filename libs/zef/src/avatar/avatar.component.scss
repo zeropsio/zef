@@ -1,0 +1,27 @@
+:host {
+  display: inline-block;
+}
+
+.__wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.__avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-color: #e4e4e4cf;
+  border-radius: 500px;
+}
+
+.__initials {
+  width: 100%;
+
+  text-align: center;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+}

@@ -1,0 +1,66 @@
+@function zIndex($layer) {
+  @if not map-has-key($zIndexes, $layer) {
+    @warn "No layer found for `#{$layer}` in $zIndexes map.";
+  }
+
+  @return map-get($zIndexes, $layer);
+}
+
+@function background($key) {
+  @if not map-has-key($backgrounds, $key) {
+    @warn "No key found for `#{$key}` in $backgrounds map.";
+  }
+
+  @return map-get($backgrounds, $key);
+}
+
+@function color($key) {
+  @if not map-has-key($colors, $key) {
+    @warn "No key found for `#{$key}` in $colors map.";
+  }
+
+  @return map-get($colors, $key);
+}
+
+@mixin generateStatusStyles($theme) {
+
+  @each $status, $colorCode in $theme {
+    @if not map-has-key($theme, $status) {
+      @warn "'#{$status}' is not a valid service stack status";
+    }
+
+    @else {
+      &.has-status--#{$status} {
+        background: $colorCode;
+      }
+    }
+  }
+}
+
+// TODO: refactor
+@mixin generateRippleStyles($theme) {
+
+  @each $status, $colorCode in $theme {
+    @if not map-has-key($theme, $status) {
+      @warn "'#{$status}' is not a valid service stack status";
+    }
+
+    @else {
+      &.has-status--#{$status} {
+        border-color: $colorCode;
+      }
+    }
+  }
+}
+
+@mixin flexMediaQuery($name) {
+  $breakpoint: map-get($zuiBreakpoints, $name);
+
+  @media #{$breakpoint}  { @content; }
+}
+
+@function zuiGetThemeColor($theme, $id) {
+  $t: map-get($zuiGraphThemes, $theme);
+  $res: map-get($t, $id);
+  @return $res;
+}

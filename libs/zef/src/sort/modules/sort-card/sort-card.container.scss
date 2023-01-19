@@ -1,0 +1,36 @@
+@import 'toolkit';
+
+:host {
+  display: block;
+}
+
+
+.__grid {
+  display: grid;
+  align-items: center;
+  column-gap: 12px;
+  grid-template-columns: 6fr 2fr 2fr;
+}
+
+  .__direction-icon {
+    font-size: 16px;
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+  }
+
+  .__key,
+  .__direction {
+
+    opacity: 0.4;
+
+    transition: opacity 200ms;
+
+    &.is-active {
+      font-weight: 500;
+
+      opacity: 1;
+
+      background: #f8f8f8;
+    }
+  }

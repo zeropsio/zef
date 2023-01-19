@@ -1,0 +1,11 @@
+<label class="__label" *ngIf="hasLabel">
+  <ng-content select="zef-form-label"></ng-content>
+</label>
+
+<div class="__content  c-form-field-content">
+  <ng-content></ng-content>
+</div>
+
+<div class="__hints" *ngIf="hasHints">
+  <ng-content select="zef-form-hints"></ng-content>
+</div>

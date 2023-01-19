@@ -1,0 +1,15 @@
+@import 'toolkit';
+
+:host {
+  display: block;
+}
+
+.__paginator {
+  background: transparent;
+
+  &::ng-deep {
+    .mat-paginator-range-label {
+      margin-top: 5px;
+    }
+  }
+}

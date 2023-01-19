@@ -1,0 +1,100 @@
+@use 'sass:math';
+@use 'mat';
+
+.c-button--larger {
+  &.mat-button,
+  &.mat-raised-button,
+  &.mat-flat-button {
+    line-height: 46px !important;
+  }
+
+  &.mat-stroked-button {
+    line-height: 44px !important;
+  }
+}
+
+.c-button--full {
+  display: block;
+  width: 100%;
+}
+
+.c-button--smaller {
+  padding: 0 12px !important;
+
+  font-weight: 500 !important;
+  font-size: 12px !important;
+
+  &.mat-button,
+  &.mat-raised-button,
+  &.mat-flat-button {
+    line-height: 30px !important;
+
+    &.c-button--multiline {
+      line-height: 22px !important;
+    }
+  }
+
+  &.mat-stroked-button {
+    line-height: 28px !important;
+
+    &.c-button--multiline {
+      line-height: 22px !important;
+    }
+
+  }
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    line-height: 18px;
+    width: 18px;
+  }
+
+  &.c-button--ttup {
+    font-size: 10px;
+  }
+}
+
+
+.c-button--small-link {
+  @extend .c-button--smaller;
+
+  border-width: 2px !important;
+  line-height: 26px !important;
+}
+
+
+.c-button--routing {
+  text-transform: lowercase;
+
+  &:first-letter{
+    text-transform: capitalize;
+  }
+
+  mat-icon {
+    opacity: 0.4;
+  }
+}
+
+.c-button--docs {
+  padding-left: math.div($bu, 1.5);
+  padding-right: math.div($bu, 1.5);
+
+  background: #e5f4ff;
+  color: mat.get-color-from-palette(mat.$blue-palette, 900);
+}
+
+.c-button--ttup {
+  text-transform: uppercase;
+}
+
+.c-button-reset {
+  margin: 0;
+  padding: 0;
+
+  outline: none;
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+}

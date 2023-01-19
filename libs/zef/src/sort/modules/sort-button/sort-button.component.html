@@ -1,0 +1,26 @@
+<button
+  (click)="clicked.emit(); buttonRef.open();"
+  [disabled]="disabled"
+  #buttonRef="dynamicPopAnchor"
+  [zuiDynamicPopAnchor]="anchor"
+  type="button"
+  mat-button
+  class="__button">
+
+  <span class="__name" *ngIf="!!activeSort?.key">{{ activeSort.label }}</span>
+
+  <span class="__name" *ngIf="!activeSort?.key && !!defaultSort?.key">{{ defaultSort.label }}</span>
+
+  <mat-icon
+    class="__icon"
+    *ngIf="!!activeSort?.key">
+    {{ activeSort?.direction === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+  </mat-icon>
+
+  <mat-icon
+    class="__icon"
+    *ngIf="!activeSort?.key && !!defaultSort.key">
+    {{ defaultSort?.direction === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+  </mat-icon>
+
+</button>

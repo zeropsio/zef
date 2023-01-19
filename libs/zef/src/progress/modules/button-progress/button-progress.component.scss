@@ -1,0 +1,27 @@
+@import 'zef-toolkit';
+
+:host {
+  position: relative;
+
+  display: inline-block;
+}
+
+  .__progress {
+    position: absolute;
+    bottom: 4px;
+    left: 18px;
+    right: 18px;
+
+    display: block;
+    overflow: hidden;
+    width: auto;
+
+    border-radius: 13px;
+
+    &::ng-deep {
+      .mat-progress-bar-background {
+        fill: color(identityBlack);
+        opacity: 0.2;
+      }
+    }
+  }

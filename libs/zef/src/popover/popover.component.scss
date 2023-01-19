@@ -1,0 +1,137 @@
+.sat-popover-container {
+
+  .sat-popover-arrow {
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+
+    height: 50px;
+    width: 50px;
+    margin-left: -25px;
+
+    color: #e8e8e8;
+
+    font-size: 50px;
+
+    pointer-events: none;
+  }
+
+  &.sat-popover-before.sat-popover-above {
+    transform-origin: right bottom;
+
+    [dir='rtl'] & {
+      transform-origin: left bottom;
+    }
+
+    .sat-popover-content {
+      margin-bottom: 7px;
+    }
+
+    .sat-popover-arrow {
+      bottom: -19px;
+      right: 48px;
+
+      transform: rotate(180deg);
+    }
+  }
+
+  &.sat-popover-before.sat-popover-center {
+    transform-origin: right center;
+
+    [dir='rtl'] & {
+      transform-origin: left center;
+    }
+  }
+
+  &.sat-popover-before.sat-popover-below {
+    position: relative;
+
+    transform-origin: right top;
+
+    [dir='rtl'] & {
+      transform-origin: left top;
+    }
+
+    .sat-popover-content {
+      margin-top: 10px;
+    }
+
+    .sat-popover-arrow {
+      top: -19px;
+      right: 48px;
+    }
+  }
+
+  &.sat-popover-center.sat-popover-above {
+
+    .sat-popover-content {
+      margin-bottom: 10px;
+    }
+
+    transform-origin: center bottom;
+
+    .sat-popover-arrow {
+      bottom: -19px;
+
+      transform: rotate(180deg);
+    }
+
+  }
+
+  &.sat-popover-center.sat-popover-below {
+
+    .sat-popover-content {
+      margin-top: 10px;
+    }
+
+    transform-origin: center top;
+
+    .sat-popover-arrow {
+      top: -19px;
+    }
+  }
+
+  &.sat-popover-after.sat-popover-above {
+    transform-origin: left bottom;
+
+    [dir='rtl'] & {
+      transform-origin: right bottom;
+    }
+
+    .sat-popover-content {
+      margin-bottom: 10px;
+    }
+
+    .sat-popover-arrow {
+      bottom: -19px;
+      left: 48px;
+      transform: rotate(180deg);
+    }
+  }
+
+  &.sat-popover-after.sat-popover-center {
+    transform-origin: left center;
+
+    [dir='rtl'] & {
+      transform-origin: right center;
+    }
+  }
+
+  &.sat-popover-after.sat-popover-below {
+    transform-origin: left top;
+
+    [dir='rtl'] & {
+      transform-origin: right top;
+    }
+
+    .sat-popover-content {
+      margin-top: 10px;
+    }
+
+    .sat-popover-arrow {
+      top: -19px;
+      left: 48px;
+    }
+  }
+
+}

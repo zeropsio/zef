@@ -1,0 +1,15 @@
+@use 'sass:math';
+@import 'zef-toolkit';
+
+.zef-snack {
+  margin: math.div($bu, 3) !important;
+  max-width: 36vw !important;
+
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+}
+
+.zef-pop-light-backdrop {
+  background: rgba(0, 0, 0, 0.15);
+}

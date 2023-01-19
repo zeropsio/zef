@@ -1,0 +1,41 @@
+<div *ngFor="let item of sorts; trackBy: trackByIndex;">
+  <div class="__grid">
+
+    <div class="__grid-item">
+      <button
+        type="button"
+        mat-button
+        class="__key  c-button--full"
+        [class.is-active]="(!!state.activeSort?.key && item.key === state.activeSort?.key)
+          || (!state.activeSort?.key && !!defaultSort?.key && item.key === defaultSort?.key)"
+        (click)="activeSortChange$.next({ key: item.key })">
+        {{ item.label }}
+      </button>
+    </div>
+
+    <div class="__grid-item">
+      <button
+        type="button"
+        mat-icon-button
+        class="__direction"
+        [class.is-active]="(!!state.activeSort?.key && item.key === state.activeSort?.key && state.activeSort?.direction === 'asc')
+          || (!state.activeSort?.key && !!defaultSort?.key && item.key === defaultSort?.key && defaultSort?.direction === 'asc')"
+        (click)="activeSortChange$.next({ key: item.key, direction: 'asc' })">
+        <mat-icon class="__direction-icon">arrow_upward</mat-icon>
+      </button>
+    </div>
+
+    <div class="__grid-item">
+      <button
+        type="button"
+        mat-icon-button
+        class="__direction"
+        [class.is-active]="(!!state.activeSort?.key && item.key === state.activeSort?.key && state.activeSort?.direction === 'desc')
+          || (!state.activeSort?.key && !!defaultSort?.key && item.key === defaultSort?.key && defaultSort?.direction === 'desc')"
+        (click)="activeSortChange$.next({ key: item.key, direction: 'desc' })">
+        <mat-icon class="__direction-icon">arrow_downward</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</div>

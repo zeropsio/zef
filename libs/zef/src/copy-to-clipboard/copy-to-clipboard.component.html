@@ -1,0 +1,20 @@
+<span
+  class="__wrap  c-copy-to-clipboard-wrap"
+  [class.is-basic]="mode === 'basic'"
+  [matTooltip]="tooltip"
+  [matTooltipDisabled]="!tooltip || mode === 'icon'"
+  (click)="mode === 'basic' ? copy() : undefined">
+
+  <ng-content></ng-content>
+
+  <mat-icon
+    *ngIf="mode === 'icon'"
+    [matTooltip]="tooltip"
+    [matTooltipDisabled]="!tooltip"
+    class="__icon  c-copy-to-clipboard-icon"
+    unselectable="on"
+    (click)="copy()">
+    content_copy
+  </mat-icon>
+
+</span>

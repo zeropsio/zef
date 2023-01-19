@@ -1,0 +1,127 @@
+<div
+  #scrollRef
+  cdkScrollable
+  class="c-zef-scroll-area  __area"
+  [ngStyle]="nativeScrollbarOffsetStyles"
+  [style.height]="height"
+  [style.maxHeight]="maxHeight || 'auto'">
+  <div
+    #contentRef
+    class="c-zef-scroll-content  __content">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<div
+  class="__track  __track--y"
+  [ngClass]="{
+    'is-hidden': !overflowState.y && !forceYVisible,
+    'is-visible': isScrolling,
+    'is-force-visible': forceYVisible
+  }">
+  <div
+    #trackYRef
+    class="__scrollbar  __scrollbar--y  c-scroll-scrollbar--y">
+  </div>
+</div>
+
+<div
+  class="__track  __track--x"
+  [ngClass]="{
+    'is-hidden': !overflowState.x,
+    'is-visible': isScrolling,
+    'is-force-visible': forceXVisible
+  }">
+  <div
+    #trackXRef
+    class="__scrollbar  __scrollbar--x  c-scroll-scrollbar--x">
+  </div>
+</div>
+
+<ng-template [ngIf]="showScrollButtons">
+
+  <button
+    *ngIf="yReachedEnd && overflowState.y"
+    mat-mini-fab
+    (click)="scrollToTop(250)"
+    class="__scroll-button  __scroll-button--top  c-scroll-scroll-button"
+    type="button">
+    <mat-icon class="__scroll-button-icon  c-scroll-scroll-button-icon">arrow_upward</mat-icon>
+  </button>
+
+  <button
+    *ngIf="!yReachedEnd && overflowState.y"
+    mat-mini-fab
+    (click)="scrollToBottom(250)"
+    class="__scroll-button  __scroll-button--bottom  c-scroll-scroll-button"
+    type="button">
+    <mat-icon class="__scroll-button-icon  c-scroll-scroll-button-icon">arrow_downward</mat-icon>
+  </button>
+
+</ng-template>
+
+<!--
+
+<div
+  cdkScrollable
+  cdkObserveContent
+  class="c-zef-scroll-area  __area"
+  [ngStyle]="nativeScrollbarOffsetStyles"
+  [style.height]="height"
+  [style.maxHeight]="maxHeight || 'auto'">
+  <div
+    #contentRef
+    class="c-zef-scroll-content  __content">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<div
+  class="__track  __track--y"
+  [class.is-hidden]="!overflowState.y"
+  [class.is-visible]="isScrolling">
+  <div
+    #trackYRef
+    cdkDrag
+    cdkDragLockAxis="y"
+    cdkDragBoundary=".__track--y"
+    class="__scrollbar  __scrollbar--y">
+  </div>
+</div>
+
+<div
+  class="__track  __track--x"
+  [class.is-hidden]="!overflowState.x"
+  [class.is-visible]="isScrolling">
+  <div
+    #trackXRef
+    cdkDrag
+    cdkDragLockAxis="x"
+    cdkDragBoundary=".__track--x"
+    class="__scrollbar  __scrollbar--x">
+  </div>
+</div>
+
+<ng-template [ngIf]="showScrollButtons">
+
+  <button
+    *ngIf="yReachedEnd && overflowState.y"
+    mat-mini-fab
+    (click)="scrollToTop(250)"
+    class="__scroll-button  __scroll-button--top"
+    type="button">
+    <mat-icon class="__scroll-button-icon">arrow_upward</mat-icon>
+  </button>
+
+  <button
+    *ngIf="!yReachedEnd && overflowState.y"
+    mat-mini-fab
+    (click)="scrollToBottom(250)"
+    class="__scroll-button  __scroll-button--bottom"
+    type="button">
+    <mat-icon class="__scroll-button-icon">arrow_downward</mat-icon>
+  </button>
+
+</ng-template>
+
+-->

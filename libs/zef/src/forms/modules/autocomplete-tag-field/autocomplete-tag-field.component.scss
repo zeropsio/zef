@@ -1,0 +1,9 @@
+@import 'toolkit';
+
+.__hint {
+  &::ng-deep {
+    .__link {
+      color: color(identityPink);
+    }
+  }
+}

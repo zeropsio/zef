@@ -1,0 +1,24 @@
+<zef-button-progress
+  [satPopoverAnchor]
+  [buttonRef]="buttonRef"
+  class="__button-progress"
+  [class.is-disabled]="disabled"
+  [class.has-errors]="(errorData$ | async)?.length"
+  [active]="(progressActive$ | async) || loading">
+  <ng-content></ng-content>
+</zef-button-progress>
+
+<sat-popover
+  [autoFocus]="false"
+  [hasArrow]="true"
+  [verticalAlign]="'below'"
+  (closed)="onPopoverClosed$.next()"
+  [anchor]="popoverAnchorRef">
+  <ng-template
+    [ngTemplateOutlet]="tpl"
+    [ngTemplateOutletContext]="{
+      data: errorsActive$ | async,
+      instance: popoverAnchorRef.popover
+    }">
+  </ng-template>
+</sat-popover>

@@ -1,0 +1,81 @@
+$bu: 24px;
+
+$withs: ( );
+
+$zuiXlBreakpoint: 1600 !default;
+$zuiSmBreakpoint: 680 !default;
+
+$zuiBreakpoints: (
+  'xs': 'screen and (min-width: 0px) and (max-width: #{$zuiSmBreakpoint - 0.1}px)',
+  'sm': 'screen and (min-width: #{$zuiSmBreakpoint}px) and (max-width: 959.9px)',
+  'md': 'screen and (min-width: 960px) and (max-width: 1279.9px)',
+  'lg': 'screen and (min-width: 1280px) and (max-width: #{$zuiXlBreakpoint - 0.1}px)',
+  'xl': 'screen and (min-width: #{$zuiXlBreakpoint}px) and (max-width: 4999.9px)',
+  'lt-sm': 'screen and (max-width: #{$zuiSmBreakpoint - 0.1}px)',
+  'lt-md': 'screen and (max-width: 959.9px)',
+  'lt-lg': 'screen and (max-width: 1279.9px)',
+  'lt-xl': 'screen and (max-width: #{$zuiXlBreakpoint - 0.1}px)',
+  'gt-xs': 'screen and (min-width: #{$zuiSmBreakpoint}px)',
+  'gt-sm': 'screen and (min-width: 960px)',
+  'gt-md': 'screen and (min-width: 1280px)',
+  'gt-lg': 'screen and (min-width: #{$zuiXlBreakpoint}px)',
+);
+
+
+$zuiGraphThemes: (
+  'blue': (
+    '1': #0C518D,
+    '2': #1B5895,
+    '3': #275F9E,
+    '4': #3267A6,
+    '5': #3D6EAE,
+    '6': #4876B5,
+    '7': #537DBC,
+    '8': #5D85C3,
+    '9': #688CC9,
+    '10': #7394CF,
+    '11': #7F9CD5,
+    '12': #8AA4DA,
+    '13': #95ACDF,
+    '14': #A1B4E3,
+    '15': #ADBCE7,
+    '16': #B8C4EB,
+    '17': #C4CCEE,
+    '18': #D0D5F0,
+    '19': #DCDDF2,
+    'other': #809ab3
+  ),
+  'grey': (
+    '1': #382E2E,
+    '2': #413736,
+    '3': #4B3F3E,
+    '4': #544847,
+    '5': #5E504F,
+    '6': #695958,
+    '7': #736261,
+    '8': #7D6C6A,
+    '9': #887573,
+    '10': #937E7C,
+    '11': #9E8885,
+    '12': #A9928E,
+    '13': #B49C98,
+    '14': #C0A6A2,
+    '15': #CBB0AB,
+    '16': #D7BAB5,
+    '17': #E2C5BF,
+    '18': #b7b7b7,
+    '19': #FADAD3,
+    // '1': #504c4d,
+    // '2': #b2acab,
+    // '3': #726b67,
+    // '4': #83878c,
+    // '5': #797979,
+    // '6':  #483c41,
+    'other': rgb(248, 234, 234)
+  ),
+  'metrics': (
+    'cpu': color(metricCpu),
+    'ram': color(metricRam),
+    'disc': color(metricDisc)
+  )
+);

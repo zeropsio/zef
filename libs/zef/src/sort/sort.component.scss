@@ -1,0 +1,15 @@
+@use 'sass:math';
+// @import 'toolkit';
+
+$bu: 24px;
+
+:host {
+  display: block;
+}
+
+.__card {
+  min-width: 230px;
+  padding: math.div($bu, 2);
+
+  box-shadow: 10px 13px -6px rgba(0,0,0,.2), 0 20px 31px 3px rgba(0,0,0,.14), 0 8px 38px 7px rgba(0,0,0,.12);
+}

@@ -1,6 +1,7 @@
 {
+  "name": "zef-test-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/zef-test-app",
   "sourceRoot": "apps/zef-test-app/src",
   "prefix": "zef",
   "targets": {
@@ -83,9 +84,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/zef-test-app"],
+      "outputs": ["{workspaceRoot}/coverage/apps/zef-test-app"],
       "options": {
-        "jestConfig": "apps/zef-test-app/jest.config.js",
+        "jestConfig": "apps/zef-test-app/jest.config.ts",
         "passWithNoTests": true
       }
     }

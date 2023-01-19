@@ -1,0 +1,17 @@
+<ng-template>
+  <div class="sat-popover-container"
+    #focusTrapElement
+    [ngClass]="_classList"
+    [@transformPopover]="_getAnimation()"
+    (@transformPopover.done)="_onAnimationDone($event)">
+
+    <mat-icon *ngIf="hasArrow" class="sat-popover-arrow">arrow_drop_up</mat-icon>
+
+    <div
+      class="sat-popover-content"
+      (mouseenter)="contentMouseEnter.emit($event)"
+      (mouseleave)="contentMouseLeave.emit($event)">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,43 @@
+{
+  "name": "zef",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/zef/src",
+  "prefix": "zef",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/zef"],
+      "options": {
+        "project": "libs/zef/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/zef/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/zef/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/zef"],
+      "options": {
+        "jestConfig": "libs/zef/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/zef/src/**/*.ts",
+          "libs/zef/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

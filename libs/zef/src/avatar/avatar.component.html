@@ -1,0 +1,24 @@
+<div class="__wrap">
+  <div
+    class="__avatar  zef-avatar-avatar"
+    [ngStyle]="{
+      'width.px': size,
+      'height.px': size,
+      'background-color': (!image && !externalImage && !gravatarImage) ? backgroundColor : undefined,
+      'border-width.px': borderWidth,
+      'background-image': (!!image || !!externalImage || !!gravatarImage) ? ('url(' + (image || externalImage || gravatarImage) + ')') : undefined,
+      'background-size': 'cover'
+    }">
+
+    <span
+      *ngIf="!image && !externalImage && !gravatarImage"
+      class="__initials"
+      [ngStyle]="{
+        'font-size.px': fontSizeFactor,
+        'color': textColor
+      }">
+      {{ initials }}
+    </span>
+
+  </div>
+</div>

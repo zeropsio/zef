@@ -1,0 +1,24 @@
+<zef-sort-button
+  [anchor]="popRef"
+  [disabled]="buttonDisabled"
+  [activeSort]="activeSortWithLabel"
+  [defaultSort]="defaultSortWithLabel">
+</zef-sort-button>
+
+<sat-popover
+  #popRef
+  [autoFocus]="false"
+  [restoreFocus]="false"
+  [verticalAlign]="'below'"
+  [horizontalAlign]="'end'"
+  hasBackdrop
+  (backdropClicked)="popRef.close()">
+  <mat-card class="__card  z-manual-elevation  c-soft-elevation">
+    <zef-sort-card
+      [activeSort]="activeSortWithLabel"
+      [defaultSort]="defaultSortWithLabel"
+      [key]="key"
+      [sorts]="sorts">
+    </zef-sort-card>
+  </mat-card>
+</sat-popover>

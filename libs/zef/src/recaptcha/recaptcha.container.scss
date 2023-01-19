@@ -1,0 +1,38 @@
+@use 'sass:math';
+
+$__width: 304px;
+$__recaptchaHeight: 78px;
+$__spinnerSize: 30px;
+
+.__recaptcha-wrap {
+  position: relative;
+
+  min-height: $__recaptchaHeight;
+  width: $__width;
+
+  text-align: center;
+}
+
+.__loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  min-height: $__recaptchaHeight;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.__recaptcha {
+  margin: 0 auto;
+}
+
+.__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin-left: -(math.div($__spinnerSize, 2));
+  margin-top: -(math.div($__spinnerSize, 2));
+}

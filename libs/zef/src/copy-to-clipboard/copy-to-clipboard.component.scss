@@ -1,0 +1,45 @@
+.__wrap {
+  display: inline-block;
+  position: relative;
+
+  &.is-basic {
+    cursor: pointer;
+  }
+
+  &:hover {
+    .__icon {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+  .__icon {
+    position: absolute;
+    top: 50%;
+    left: -25px;
+    z-index: 99999;
+
+    width: 25px;
+    font-size: 16px;
+    line-height: 25px;
+    margin-top: -12px;
+    height: 25px;
+    visibility: hidden;
+
+    background: #00ffbb;
+    color: #000;
+    border-radius: 25px;
+    opacity: 0;
+
+    text-align: center;
+    cursor: pointer;
+
+    transition: opacity 200ms;
+
+    // prevent copy icon from select
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }

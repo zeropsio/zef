@@ -1,0 +1,22 @@
+.c-internal-link {
+
+  padding: 0.2em 0.4em;
+
+  color: inherit;
+  background: #e2fffd;
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  transition: background 200ms, opacity 200ms;
+  cursor: pointer;
+
+  strong {
+    font-weight: 500;
+  }
+
+  &:hover {
+    background: #c3fdf9;
+    opacity: 0.8;
+  }
+}
