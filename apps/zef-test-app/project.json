@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/zef-test-app",
+  "sourceRoot": "apps/zef-test-app/src",
+  "prefix": "zef",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/zef-test-app",
+        "index": "apps/zef-test-app/src/index.html",
+        "main": "apps/zef-test-app/src/main.ts",
+        "polyfills": "apps/zef-test-app/src/polyfills.ts",
+        "tsConfig": "apps/zef-test-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/zef-test-app/src/favicon.ico",
+          "apps/zef-test-app/src/assets"
+        ],
+        "styles": ["apps/zef-test-app/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/zef-test-app/src/environments/environment.ts",
+              "with": "apps/zef-test-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "zef-test-app:build:production"
+        },
+        "development": {
+          "browserTarget": "zef-test-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "zef-test-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/zef-test-app/src/**/*.ts",
+          "apps/zef-test-app/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/zef-test-app"],
+      "options": {
+        "jestConfig": "apps/zef-test-app/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
