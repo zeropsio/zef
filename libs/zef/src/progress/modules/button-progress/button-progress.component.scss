@@ -1,5 +1,3 @@
-@import 'zef-toolkit';
-
 :host {
   position: relative;
 
@@ -20,7 +18,7 @@
 
     &::ng-deep {
       .mat-progress-bar-background {
-        fill: color(identityBlack);
+        fill: #111;
         opacity: 0.2;
       }
     }

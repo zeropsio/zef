@@ -1,5 +1,5 @@
 export * from './animations';
-// export * from './auth';
+export * from './auth';
 export * from './avatar';
 export * from './copy-to-clipboard';
 export * from './core';
