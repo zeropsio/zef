@@ -1,4 +1,4 @@
-export { ZefProgressModule } from './progress.module';
+export { ZefProgressModule, ZefProgressRootModule } from './progress.module';
 export * from './progress.selector';
 export * from './progress.model';
 export * from './modules';

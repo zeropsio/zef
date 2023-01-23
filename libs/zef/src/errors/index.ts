@@ -1,4 +1,4 @@
-export { ZefErrorsModule } from './errors.module';
+export { ZefErrorsModule, ZefErrorsRootModule } from './errors.module';
 export * from './errors.selector';
 export * from './errors.model';
 export * from './errors.action';

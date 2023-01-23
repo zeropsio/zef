@@ -1,4 +1,4 @@
-export { ZefNgrxRouterModule } from './ngrx-router.module';
+export { ZefNgrxRouterModule, ZefNgrxRouterRootModule } from './ngrx-router.module';
 export * from './ngrx-router.action';
 export * from './ngrx-router.model';
 export * from './ngrx-router.selector';
