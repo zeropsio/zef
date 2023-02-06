@@ -1,4 +1,4 @@
-export { ZefFormsModule } from './forms.module';
+export { ZefFormsModule, ZefFormsRootModule } from './forms.module';
 export * from './forms-manager.service';
 export { ZefForm } from './form.service';
 // export { ZefFormComponent } from './modules/form/form.component';
