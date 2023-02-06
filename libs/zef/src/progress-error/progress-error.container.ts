@@ -17,7 +17,7 @@ import {
 } from '../errors';
 import { SatPopoverAnchor } from '../popover';
 import { BaseClass } from '../core';
-import { Observable, timer, Subject, noop } from 'rxjs';
+import { Observable, timer, Subject } from 'rxjs';
 import {
   switchMap,
   map,
@@ -107,7 +107,7 @@ export class ProgressErrorContainer extends BaseClass {
   // # Action Streams
   private _popoverClosedAction$ = this.onPopoverClosed$.pipe(
     withLatestFrom(
-      this.key$,
+      this.observableKey$,
       this.errorData$
     ),
     filter(([ _, __, d ]) => !!d.length),
@@ -126,6 +126,8 @@ export class ProgressErrorContainer extends BaseClass {
     super();
 
     this.tpl = this._errorTemplates.getTemplate('pop');
+
+    console.log(this.tpl);
 
     this.dispatchActions$$(
       this._store,
