@@ -19,7 +19,7 @@ export * from './popover';
 export * from './progress';
 export * from './progress-error';
 // export * from './reading-time';
-// export * from './recaptcha';
+export * from './recaptcha';
 export * from './scroll';
 // export * from './translations';
 // export * from './snack';
