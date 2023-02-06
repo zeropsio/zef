@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of, race, timer } from 'rxjs';
 import {
@@ -24,6 +24,7 @@ import {
   zefWebsocketTerminate
 } from './websocket.action';
 import { WebsocketApi } from './websocket.api';
+import { PING_PONG_ENABLED } from './websocket.constant';
 
 @Injectable()
 export class WebsocketEffect {
@@ -73,6 +74,7 @@ export class WebsocketEffect {
     // upon connecting to websocket for
     // the first time, start a 5000ms timer
     ofType(zefWebsocketOpened),
+    filter(() => this._pingPongEnabled),
     switchMap(() => timer(0, 5000).pipe(
       // on each timer tick, race between
       // a 3000ms timeout and a websocket
@@ -104,6 +106,8 @@ export class WebsocketEffect {
 
   constructor(
     private _actions$: Actions,
-    private _api: WebsocketApi
+    private _api: WebsocketApi,
+    @Inject(PING_PONG_ENABLED)
+    private _pingPongEnabled: boolean
   ) { }
 }
