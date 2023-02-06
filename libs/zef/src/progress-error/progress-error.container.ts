@@ -4,7 +4,8 @@ import {
   ContentChild,
   ViewChild,
   TemplateRef,
-  HostBinding
+  HostBinding,
+  AfterViewInit
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MatButton } from '@angular/material/button';
@@ -35,7 +36,7 @@ import isArray from 'lodash-es/isArray';
   templateUrl: './progress-error.container.html',
   styleUrls: [ './progress-error.container.scss' ]
 })
-export class ProgressErrorContainer extends BaseClass {
+export class ProgressErrorContainer extends BaseClass implements AfterViewInit {
   // # Event Streams
   onPopoverClosed$ = new Subject<void>();
 
@@ -127,11 +128,17 @@ export class ProgressErrorContainer extends BaseClass {
 
     this.tpl = this._errorTemplates.getTemplate('pop');
 
-    console.log(this.tpl);
-
     this.dispatchActions$$(
       this._store,
       [ this._popoverClosedAction$ ]
     );
+  }
+
+  ngAfterViewInit() {
+    if (!this.tpl) {
+      setTimeout(() => {
+        this.tpl = this._errorTemplates.getTemplate('pop');
+      });
+    }
   }
 }
