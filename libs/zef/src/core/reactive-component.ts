@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Store, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { ZefAppInjector } from './app-injector';
 import { ZefTranslationsService } from '../translations';
 import { HashMap } from './models';
@@ -12,7 +12,6 @@ import { ZefReactiveComponentBase } from './reactive-component-base';
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class ZefReactiveComponent extends ZefReactiveComponentBase {
 
-  private __store = ZefAppInjector.injector.get(Store);
   private __translationsService = ZefAppInjector.injector.get(ZefTranslationsService);
 
   constructor() {

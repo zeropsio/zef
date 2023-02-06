@@ -1,9 +1,10 @@
-import { Directive } from '@angular/core';
-import { Observable, ReplaySubject, from, concat } from 'rxjs';
+import { Directive, inject } from '@angular/core';
+import { Observable, ReplaySubject, from, concat, merge } from 'rxjs';
 import { OnInit, OnDestroy } from '@angular/core';
 import { mergeMap, tap, takeUntil } from 'rxjs/operators';
 
 import { ZefScheduler } from './zef-scheduler';
+import { Action, Store } from '@ngrx/store';
 
 type ObservableDictionary<T> = {
   [P in keyof T]: Observable<T[P]>;
@@ -14,6 +15,8 @@ const OnDestroySubject = Symbol('OnDestroySubject');
 
 @Directive()
 export abstract class ZefReactiveComponentBase extends ZefScheduler implements OnInit, OnDestroy {
+
+  private __store = inject(Store);
 
   private [OnInitSubject] = new ReplaySubject<true>(1);
   private [OnDestroySubject] = new ReplaySubject<true>(1);
@@ -70,5 +73,12 @@ export abstract class ZefReactiveComponentBase extends ZefScheduler implements O
   trackByIndex(index: number) {
     return index;
   }
+
+  $dispatchActions(actions: Observable<Action>[]) {
+    merge(...actions)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(this.__store);
+  }
+
 
 }
