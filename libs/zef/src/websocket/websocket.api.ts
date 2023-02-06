@@ -37,7 +37,8 @@ export class WebsocketApi {
   }
 
   auth$(accessToken: string) {
-    return this._http.post<{ webSocketToken: string; }>(
+    // TODO: make variable...
+    return this._http.post<{ webSocketToken?: string; token?: string; }>(
       this._loginUrl,
       { accessToken }
     );
