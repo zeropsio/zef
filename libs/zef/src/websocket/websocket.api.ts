@@ -57,6 +57,10 @@ export class WebsocketApi {
       host = window.location.hostname;
     }
 
-    return `${protocol}://${host}${this._apiUrl ? `/${this._apiUrl}` : '/api/rest/public/web-socket'}/${receiverId}/${token}`;
+    const receiverTokenPath = !!receiverId && !!token
+      ? `/${receiverId}/${token}`
+      : `/${receiverId}`;
+
+    return `${protocol}://${host}${this._apiUrl ? `/${this._apiUrl}` : '/api/rest/public/web-socket'}${receiverTokenPath}`;
   }
 }
