@@ -66,6 +66,6 @@ export class WebsocketApi {
 
     const receiverTokenPath = this._pathNormalizer({ token, receiverId });
 
-    return `${protocol}://${host}${this._apiUrl ? `/${this._apiUrl}` : '/api/rest/public/web-socket'}${receiverTokenPath}`;
+    return `${protocol}://${host}${this._apiUrl ? `/${this._apiUrl}${receiverTokenPath}` : '/api/rest/public/web-socket'}${receiverTokenPath}`;
   }
 }
