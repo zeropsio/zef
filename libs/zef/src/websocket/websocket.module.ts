@@ -43,7 +43,9 @@ export class ZefWebsocketModule {
         },
         {
           provide: PING_PONG_ENABLED,
-          useValue: config.pingPongEnabled || true
+          useValue: config.pingPongEnabled === undefined
+            ? true
+            : config.pingPongEnabled
         },
         {
           provide: TOKEN_NORMALIZER,
