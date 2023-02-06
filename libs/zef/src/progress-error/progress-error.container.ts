@@ -46,7 +46,7 @@ export class ProgressErrorContainer extends BaseClass {
   // -- angular
   @ObservableInput()
   @Input('key')
-  key$!: Observable<string | string[]>;
+  key$!: any | Observable<string | string[]>;
 
   @Input()
   set full(v: string | boolean) {
