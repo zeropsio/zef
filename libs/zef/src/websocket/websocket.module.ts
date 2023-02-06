@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { WebsocketEffect } from './websocket.effect';
 import { WebsocketConfig } from './websocket.model';
-import { FEATURE_NAME, LOGIN_URL, HOST, API_URL, FORCE_SECURED_ENDPOINT } from './websocket.constant';
+import { FEATURE_NAME, LOGIN_URL, HOST, API_URL, FORCE_SECURED_ENDPOINT, TOKEN_NORMALIZER, WEBSOCKET_PATH_NORMALIZER } from './websocket.constant';
 import { StoreModule } from '@ngrx/store';
 import { websocketReducer } from './websocket.reducer';
 
@@ -40,6 +40,23 @@ export class ZefWebsocketModule {
         {
           provide: FORCE_SECURED_ENDPOINT,
           useValue: config.forceSecuredEndpoint
+        },
+        {
+          provide: TOKEN_NORMALIZER,
+          useValue: config.tokenNormalizerFn
+            ? config.tokenNormalizerFn
+            : (data: any) => ({ webSocketToken: data?.webSocketToken })
+        },
+        {
+          provide: WEBSOCKET_PATH_NORMALIZER,
+          useValue: config.websocketPathNormalizer
+            ? config.websocketPathNormalizer
+            : ({ token, receiverId }: {
+              token?: string;
+              receiverId?: string;
+          }) => !!receiverId && !!token
+            ? `/${receiverId}/${token}`
+            : `/${receiverId}`
         }
       ]
     };

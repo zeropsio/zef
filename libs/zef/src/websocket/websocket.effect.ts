@@ -34,9 +34,9 @@ export class WebsocketEffect {
     concatMap((action) => this._api
       .auth$(action.data.token)
       .pipe(
-        map(({ webSocketToken, token }) => zefWebsocketSuccess(
+        map(({ webSocketToken }) => zefWebsocketSuccess(
           {
-            token: webSocketToken || token,
+            token: webSocketToken,
             receiverId: action.data.receiverId
           },
           action

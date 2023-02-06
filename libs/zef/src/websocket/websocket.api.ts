@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   LOGIN_URL,
   HOST,
   API_URL,
   FORCE_SECURED_ENDPOINT,
+  TOKEN_NORMALIZER,
+  WEBSOCKET_PATH_NORMALIZER,
 } from './websocket.constant';
 
 @Injectable({ providedIn: 'root' })
@@ -24,7 +26,11 @@ export class WebsocketApi {
     @Inject(API_URL)
     private _apiUrl: string,
     @Inject(FORCE_SECURED_ENDPOINT)
-    private _forceSecuredEndpoint: boolean
+    private _forceSecuredEndpoint: boolean,
+    @Inject(TOKEN_NORMALIZER)
+    private _tokenNormalizerFn: (s: any) => { webSocketToken: string; },
+    @Inject(WEBSOCKET_PATH_NORMALIZER)
+    private _pathNormalizer: (s: { token?: string; receiverId?: string; }) => string
   ) { }
 
   connect(token: string, receiverId: string) {
@@ -38,10 +44,10 @@ export class WebsocketApi {
 
   auth$(accessToken: string) {
     // TODO: make variable...
-    return this._http.post<{ webSocketToken?: string; token?: string; }>(
+    return this._http.post<any>(
       this._loginUrl,
       { accessToken }
-    );
+    ).pipe(map((r) => this._tokenNormalizerFn(r)));
   }
 
   private _getConnectEndpoint(token: string, receiverId: string) {
@@ -58,9 +64,7 @@ export class WebsocketApi {
       host = window.location.hostname;
     }
 
-    const receiverTokenPath = !!receiverId && !!token
-      ? `/${receiverId}/${token}`
-      : `/${receiverId}`;
+    const receiverTokenPath = this._pathNormalizer({ token, receiverId });
 
     return `${protocol}://${host}${this._apiUrl ? `/${this._apiUrl}` : '/api/rest/public/web-socket'}${receiverTokenPath}`;
   }

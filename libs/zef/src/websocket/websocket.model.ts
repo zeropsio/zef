@@ -15,4 +15,6 @@ export interface WebsocketConfig {
   host: string;
   apiUrl?: string;
   forceSecuredEndpoint?: boolean;
+  tokenNormalizerFn?: (s: any) => { webSocketToken: string; };
+  websocketPathNormalizer?: (s: { token?: string; receiverId?: string; }) => string;
 }
