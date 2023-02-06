@@ -6,7 +6,7 @@ export * from './core';
 export * from './dialog';
 export * from './entities';
 export * from './errors';
-// export * from './forms';
+export * from './forms';
 // export * from './github';
 // export * from './intercom';
 export * from './intersection-observer';
