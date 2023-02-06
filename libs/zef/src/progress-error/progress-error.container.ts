@@ -17,7 +17,7 @@ import {
 } from '../errors';
 import { SatPopoverAnchor } from '../popover';
 import { BaseClass } from '../core';
-import { Observable, timer, Subject } from 'rxjs';
+import { Observable, timer, Subject, noop } from 'rxjs';
 import {
   switchMap,
   map,
@@ -48,6 +48,8 @@ export class ProgressErrorContainer extends BaseClass {
   @Input('key')
   key$!: any | Observable<string | string[]>;
 
+  observableKey$ = (this.key$ as Observable<string | string[]>).pipe();
+
   @Input()
   set full(v: string | boolean) {
     this._full = coerceBooleanProperty(v);
@@ -74,14 +76,14 @@ export class ProgressErrorContainer extends BaseClass {
   }
 
   // -- async
-  progressActive$ = this.key$.pipe(
+  progressActive$ = this.observableKey$.pipe(
     switchMap((keyOrKeys) => this._store.pipe(
       select(selectZefProgressesByType(keyOrKeys)),
     )),
     map((d) => !!d.length),
     delayWhen((v) => !v ? timer(200) : timer(0))
   );
-  errorData$ = this.key$.pipe(
+  errorData$ = this.observableKey$.pipe(
     switchMap((keyOrKeys) => this._store.pipe(
       select(selectZefErrorsByType(keyOrKeys)),
     ))
