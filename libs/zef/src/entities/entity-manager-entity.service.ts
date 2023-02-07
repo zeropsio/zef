@@ -16,8 +16,12 @@ import { EntityOps } from './operations.constant';
 import { createTag } from './action-creator.service';
 import { selectEntities, selectEntityList, selectEntityListAdditionalInfo } from './entities.selector';
 import { CollectionManagerService } from './collection-manager.service';
+import { inject } from '@angular/core';
 
 export class EntityService<E, A = E, U = E> {
+  _store = inject(Store);
+  _collectionManager = inject(CollectionManagerService);
+  _wsService = inject(ZefWebsocketService);
 
   addOne = createAction(
     createTag(this.entityName, EntityOps.AddOne),
@@ -160,7 +164,7 @@ export class EntityService<E, A = E, U = E> {
         subscriptionName: getSubscriptionNameForFeature(this.entityName, 'update'),
         disableOutput: true,
         wsOutputType: 'updateStream',
-        receiverId: this.wsService?.getReceiverId(),
+        receiverId: this._wsService?.getReceiverId(),
       },
       EntityOps.UpdateSubscribe,
       meta,
@@ -195,7 +199,7 @@ export class EntityService<E, A = E, U = E> {
               ? featureName
               : featureName.name
         ),
-        receiverId: this.wsService?.getReceiverId(),
+        receiverId: this._wsService?.getReceiverId(),
         wsOutputType: 'listStream'
       },
       EntityOps.ListSubscribe,
@@ -278,15 +282,12 @@ export class EntityService<E, A = E, U = E> {
 
   private _schema$: Observable<any>;
 
-  private _entities$ = this.store.pipe(select(selectEntities));
+  private _entities$ = this._store.pipe(select(selectEntities));
 
   constructor(
-    public readonly entityName: string,
-    public readonly store: Store<any>,
-    public readonly collectionManager: CollectionManagerService,
-    public readonly wsService?: ZefWebsocketService
+    public readonly entityName: string
   ) {
-    this._schema$ = this.collectionManager.getSchema$(this.entityName);
+    this._schema$ = this._collectionManager.getSchema$(this.entityName);
   }
 
   list$(
@@ -295,7 +296,7 @@ export class EntityService<E, A = E, U = E> {
     orderDir?: Array<boolean | 'asc' | 'desc'>
   ) {
     return combineLatest([
-      this.store.pipe(select(selectEntityList(this.entityName, getFeatureNameWithId(tag)))),
+      this._store.pipe(select(selectEntityList(this.entityName, getFeatureNameWithId(tag)))),
       this._entities$,
       this._schema$
     ]).pipe(
@@ -317,7 +318,7 @@ export class EntityService<E, A = E, U = E> {
   }
 
   listAdditionalInfo$(tag?: string | { name: string; id: string; }) {
-    return this.store.pipe(
+    return this._store.pipe(
       select(selectEntityListAdditionalInfo(this.entityName, getFeatureNameWithId(tag)),
       distinctUntilChanged()
     ));
@@ -336,7 +337,7 @@ export class EntityService<E, A = E, U = E> {
       ? baseStreams$
       : [
         ...baseStreams$,
-        this.store.pipe(select(selectorOrId)),
+        this._store.pipe(select(selectorOrId)),
       ];
 
     return combineLatest(streams$).pipe(
@@ -354,7 +355,7 @@ export class EntityService<E, A = E, U = E> {
 
   listByIds$(selector: MemoizedSelector<any, string[]>) {
     return combineLatest([
-      this.store.pipe(select(selector)),
+      this._store.pipe(select(selector)),
       this._entities$,
       this._schema$
     ]).pipe(
@@ -384,7 +385,7 @@ export class EntityService<E, A = E, U = E> {
   }
 
   rawEntities$() {
-    return this.store.pipe(
+    return this._store.pipe(
       select(selectEntities),
       map((entities) => entities[this.entityName] as { [id: string]: E; }),
       distinctUntilChanged()
