@@ -8,6 +8,7 @@ export {
   ZefAuthDefaultResponse,
   TokenData
 } from './auth.model';
+export { AuthTokenStorageService } from './auth.utils';
 export * from './auth.action';
 export * from './refresh-token.action';
 export * from './auth.selector';
