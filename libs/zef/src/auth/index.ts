@@ -5,7 +5,8 @@ export {
   IAuthApi,
   IAuthTokenStorageService,
   ZefAuthState,
-  ZefAuthDefaultResponse
+  ZefAuthDefaultResponse,
+  TokenData
 } from './auth.model';
 export * from './auth.action';
 export * from './refresh-token.action';
