@@ -320,7 +320,7 @@ export const onShowMore = <A extends Observable<any>>(
   ) as Observable<{ id: string; limit: number; offset: number; showMoreLoading: boolean; }>;
 };
 
-export const onWebsocketMessageDispatchAddRemoveEntities = <A extends Observable<any>>(
+export const onWebsocketMessageDispatchAddRemoveEntities = (
   entity: EntityService<any>,
   feature?: string | { name: string; id: string; },
   handleGlobally = true,
@@ -328,7 +328,7 @@ export const onWebsocketMessageDispatchAddRemoveEntities = <A extends Observable
 ) => {
   const idObs$ = idSelector ? idSelector : of(undefined);
 
-  return (source$: A) => source$.pipe(
+  return (source$: Observable<Action>) => source$.pipe(
     onWebsocketSubscriptionName(getSubscriptionNameForFeature(
       entity.entityName,
       'list',
@@ -357,16 +357,16 @@ export const onWebsocketMessageDispatchAddRemoveEntities = <A extends Observable
         )
         : undefined,
     ].filter((itm) => !!itm))
-  ) as A;
+  ) as Observable<Action>;
 };
 
-export const onWebsocketMessageDispatchUpdateEntities = <A extends Observable<any>>(
+export const onWebsocketMessageDispatchUpdateEntities = (
   entity: EntityService<any>,
   meta?: Partial<ZefEntityActionOptions<any>>
 ) => {
-  return (source$: A) => source$.pipe(
+  return (source$: Observable<Action>) => source$.pipe(
     onWebsocketSubscriptionName(getSubscriptionNameForFeature(entity.entityName, 'update')),
     filter((message) => message.data.update && message.data.update.length),
     map((message) => entity.updateCache(message.data.update, meta))
-  ) as A;
+  ) as Observable<Action>;
 };
