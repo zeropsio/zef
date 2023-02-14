@@ -23,6 +23,7 @@ import { ZefFormsManagerService } from './forms-manager.service';
 import { addForm } from './forms.action';
 import { selectFormState } from './forms.selector';
 import { StateUpdateFnsNested } from './forms.model';
+import { inject } from '@angular/core';
 
 /*
 # Example
@@ -85,6 +86,10 @@ export class TestForm extends ZefForm<TestFormValue> {
 ```
 */
 export class ZefForm<V> {
+  // # // Deps
+  store = inject(Store);
+  formsManager = inject(ZefFormsManagerService);
+
   state$: Observable<FormGroupState<V>>;
   value$: Observable<V>;
   valid$: Observable<boolean>;
@@ -116,8 +121,6 @@ export class ZefForm<V> {
   )
 
   constructor(
-    public store: Store<any>,
-    public formsManager: ZefFormsManagerService,
     public id: string,
     public defaultValues: V,
     public updateFns: StateUpdateFnsNested<V>
