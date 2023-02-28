@@ -5,15 +5,15 @@ import { ZefSnackOutletDirective } from './snack-outlet.directive';
 import { ZefSnackComponent } from './snack.component';
 
 @NgModule({
-    declarations: [
-        ZefSnackOutletDirective,
-        ZefSnackComponent
-    ],
-    imports: [
-        CommonModule,
-        MatSnackBarModule,
-    ],
-    exports: [ZefSnackOutletDirective]
+declarations: [
+    ZefSnackOutletDirective,
+    ZefSnackComponent
+],
+imports: [
+    CommonModule,
+    MatSnackBarModule,
+],
+exports: [ZefSnackOutletDirective]
 })
 export class ZefSnackModule {
 

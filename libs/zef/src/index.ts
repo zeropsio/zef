@@ -22,7 +22,7 @@ export * from './progress-error';
 export * from './recaptcha';
 export * from './scroll';
 // export * from './translations';
-// export * from './snack';
+export * from './snack';
 // export * from './sort';
 // export * from './upload';
 export * from './utils';
