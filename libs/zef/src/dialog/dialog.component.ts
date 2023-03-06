@@ -56,8 +56,6 @@ export class DialogComponent {
         });
 
         this.afterClosedSubscription = this.dialog.afterClosed().subscribe(() => {
-          console.log('asf');
-
           this.closeTrigger.emit();
         });
 
