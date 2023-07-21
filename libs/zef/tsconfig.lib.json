@@ -10,8 +10,7 @@
     "noImplicitReturns": false,
     "useDefineForClassFields": false,
     "noImplicitOverride": false,
-    "strictPropertyInitialization": false,
-    "suppressImplicitAnyIndexErrors": true,
+    "strictPropertyInitialization": false
   },
   "exclude": [
     "src/test-setup.ts",

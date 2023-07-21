@@ -12,7 +12,6 @@
     "strictNullChecks": false,
     "noImplicitOverride": false,
     "noImplicitReturns": false,
-    "suppressImplicitAnyIndexErrors": true,
     "noImplicitAny": false,
     "target": "es2015",
     "module": "esnext",

@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { Directive, Host, Input, Optional } from '@angular/core';
-import { MatChipList } from '@angular/material/chips';
+import { MatChipGrid } from '@angular/material/chips';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { FormControlState } from 'ngrx-forms';
@@ -33,6 +33,6 @@ export class CustomErrorStateMatcherDirective {
   constructor(
     @Host() @Optional() private input: MatInput,
     @Host() @Optional() private select: MatSelect,
-    @Host() @Optional() private chipList: MatChipList,
+    @Host() @Optional() private chipList: MatChipGrid,
   ) { }
 }

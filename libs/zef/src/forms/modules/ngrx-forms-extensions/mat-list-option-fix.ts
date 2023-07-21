@@ -29,6 +29,6 @@ export class MatListOptionFixDirective implements OnDestroy {
   constructor(@Host() private matDirective: MatListOption) { }
 
   ngOnDestroy() {
-    this.matDirective.selectionList = { _reportValueChange: () => void 0 } as any;
+    (this.matDirective as any).selectionList = { _reportValueChange: () => void 0 } as any;
   }
 }
