@@ -3,8 +3,8 @@
 
 :host {
   display: block;
-  margin-bottom: -4px;
   text-align: left;
+  margin-bottom: $bu;
 
   &::ng-deep {
     .mat-form-field-subscript-wrapper {
