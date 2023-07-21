@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, CanDeactivate } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { NgrxRouterService } from './ngrx-router.service';
 
 @Injectable({ providedIn: 'root' })
-export class ZefNgrxRouterGuard implements CanActivate, CanDeactivate<any> {
+export class ZefNgrxRouterGuard  {
   constructor(private _ngrxRouterService: NgrxRouterService) { }
 
   canActivate(route: ActivatedRouteSnapshot) {

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { ZefPermissionService } from './permission.service';
 
 @Injectable({ providedIn: 'root' })
-export class ZefPermissionGuard implements CanActivate {
+export class ZefPermissionGuard  {
   constructor(
     private _permission: ZefPermissionService,
     private _router: Router

@@ -3,7 +3,7 @@
 
     <mat-label>{{ label }}</mat-label>
 
-    <mat-chip-list #chipListRef>
+    <mat-chip-listbox #chipListRef>
 
       <mat-chip
         *ngFor="let tag of selectedTags"
@@ -28,7 +28,7 @@
         (matChipInputTokenEnd)="add($event)"
       />
 
-    </mat-chip-list>
+    </mat-chip-listbox>
 
     <mat-autocomplete
       #autocompleteRef="matAutocomplete"
