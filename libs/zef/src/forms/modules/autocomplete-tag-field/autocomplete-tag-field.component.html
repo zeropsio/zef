@@ -3,16 +3,16 @@
 
     <mat-label>{{ label }}</mat-label>
 
-    <mat-chip-listbox #chipListRef>
+    <mat-chip-grid #chipListRef>
 
-      <mat-chip
+      <mat-chip-option
         *ngFor="let tag of selectedTags"
         [selectable]="selectable"
         [removable]="removable"
         (removed)="remove(tag)">
         {{ tag }}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
+      </mat-chip-option>
 
       <input
         #searchInputRef
@@ -28,7 +28,7 @@
         (matChipInputTokenEnd)="add($event)"
       />
 
-    </mat-chip-listbox>
+    </mat-chip-grid>
 
     <mat-autocomplete
       #autocompleteRef="matAutocomplete"
