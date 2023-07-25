@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
   providers: [{
     provide: NGRX_FORM_VIEW_ADAPTER,
     useExisting: forwardRef(() => NgrxMatSelectViewAdapter),
-    multi: true,
-  }],
+    multi: true
+  }]
 })
 export class NgrxMatSelectViewAdapter implements FormViewAdapter, AfterViewInit, OnDestroy {
   private value: any;

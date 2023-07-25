@@ -4,22 +4,14 @@
 :host {
   display: block;
   text-align: left;
-  margin-bottom: $bu;
-
-  &::ng-deep {
-    .mat-form-field-subscript-wrapper {
-      position: relative;
-
-      min-height: 13px;
-    }
-  }
+  padding-bottom: $bu * 2.5;
 
   &.has-appearance-slide-toggle {
-    padding: 0 .75em;
-    margin-bottom: $bu * 1.4;
+    // padding: 0 .75em;
+    // margin-bottom: $bu * 1.4;
 
     .__content {
-      padding-left: 2px;
+      // padding-left: 2px;
     }
 
     .__hints {
@@ -30,21 +22,23 @@
     }
 
     &::ng-deep {
-      .mat-slide-toggle-content {
-        padding-left: 6px;
-        font-size: 16px;
+      .mdc-form-field {
+        > label {
+          font-size: 16px;
+          padding-left: 10px;
+        }
       }
     }
 
   }
 
   &.has-appearance-radio {
-    padding: 0 .75em;
-    margin-bottom: math.div($bu, 1.25);
+    // padding: 0 .75em;
+    // margin-bottom: math.div($bu, 1.25);
 
     .__content {
-      padding-bottom: 1.04375em;
-      padding-left: 2px;
+      // padding-bottom: 1.04375em;
+      // padding-left: 2px;
     }
 
     &::ng-deep {
@@ -72,8 +66,8 @@
   }
 
   &.has-appearance-checkbox {
-    padding: 0 .75em;
-    margin-bottom: math.div($bu, 1.25);
+    // padding: 0 .75em;
+    // margin-bottom: math.div($bu, 1.25);
 
     .__content {
       padding-bottom: 1.04375em;
@@ -105,10 +99,10 @@
   }
 
   &.has-appearance-button-toggle {
-    margin-bottom: math.div($bu, 1.25);
+    // margin-bottom: math.div($bu, 1.25);
 
     .__content {
-      padding-bottom: 1.04375em;
+      // padding-bottom: 1.04375em;
     }
 
     &::ng-deep {
@@ -135,7 +129,7 @@
   }
 
   &.is-last {
-    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
 }
