@@ -1,9 +1,12 @@
 {
   "name": "@zerops/zef",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "peerDependencies": {
     "@angular/common": ">=14.0.0",
     "@angular/material": ">=14.0.0",
+    "@angular/animations": ">=14.0.0",
+    "@angular/platform-browser": ">=14.0.0",
+    "@angular/cdk": ">=14.0.0",
     "@angular/core": ">=14.0.0",
     "@ngrx/store": ">=14.0.0",
     "@ngrx/effects": ">=14.0.0",
@@ -15,6 +18,7 @@
     "@angular/forms": ">=14.0.0",
     "@angular/router": ">=14.0.0",
     "normalizr": ">=3.0.0",
+    "observable-input": ">=2.0.0",
     "uuid": ">=7.0.0",
     "animated-scroll-to": ">=2.0.0",
     "@juggle/resize-observer": ">=3.0.0"
