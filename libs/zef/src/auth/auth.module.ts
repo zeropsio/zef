@@ -31,6 +31,10 @@ export function defaultTokenGetter(response: any) {
 @NgModule({})
 export class ZefAuthModule {
   static forRoot(config?: AuthModuleConfig): ModuleWithProviders<ZefAuthRootModule> {
+    console.log(config, config && config.refreshTokenKey
+      ? config.refreshTokenKey
+      : 'refreshTokenId');
+
     return {
       ngModule: ZefAuthRootModule,
       providers: [
