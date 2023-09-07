@@ -13,6 +13,7 @@ export interface AuthModuleConfig {
   loginEndpoint?: string;
   logoutEndpoint?: string;
   refreshEndpoint?: string;
+  refreshTokenKey?: string;
 }
 
 export class AuthApiState {

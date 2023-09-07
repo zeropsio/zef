@@ -6,7 +6,8 @@ import {
   TOKEN_DATA_GETTER,
   API_LOGIN_ENDPOINT,
   API_LOGOUT_ENDPOINT,
-  API_REFRESH_ENDPOINT
+  API_REFRESH_ENDPOINT,
+  REFRESH_TOKEN_KEY
 } from './auth.constant';
 import { authReducer } from './auth.reducer';
 import { AuthEffect } from './auth.effect';
@@ -56,6 +57,12 @@ export class ZefAuthModule {
           useValue: config && config.refreshEndpoint
             ? config.refreshEndpoint
             : ''
+        },
+        {
+          provide: REFRESH_TOKEN_KEY,
+          useValue: config && config.refreshTokenKey
+            ? config.refreshTokenKey
+            : 'refreshTokenId'
         },
         authTokenInterceptorProvider
       ]

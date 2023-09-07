@@ -6,7 +6,8 @@ import {
   TOKEN_DATA_GETTER,
   API_LOGIN_ENDPOINT,
   API_REFRESH_ENDPOINT,
-  API_LOGOUT_ENDPOINT
+  API_LOGOUT_ENDPOINT,
+  REFRESH_TOKEN_KEY
 } from './auth.constant';
 
 interface DefaultResponse {
@@ -26,7 +27,9 @@ export class ZefAuthApi implements IAuthApi {
     @Inject(API_REFRESH_ENDPOINT)
     private _apiRefreshEndpoint: string,
     @Inject(API_LOGOUT_ENDPOINT)
-    private _apiLogoutEndpoint: string
+    private _apiLogoutEndpoint: string,
+    @Inject(REFRESH_TOKEN_KEY)
+    private _refreshTokenKey: string
   ) { }
 
 
@@ -48,10 +51,10 @@ export class ZefAuthApi implements IAuthApi {
     return this._http.post<{ success: true }>(this._apiLogoutEndpoint, {});
   }
 
-  refresh$<D = DefaultResponse>(refreshTokenId: string) {
+  refresh$<D = DefaultResponse>(token: string) {
     return this._http.post<D>(
       this._apiRefreshEndpoint,
-      { refreshTokenId }
+      { [this._refreshTokenKey]: token }
     );
   }
 }
