@@ -52,6 +52,8 @@ export class ZefAuthApi implements IAuthApi {
   }
 
   refresh$<D = DefaultResponse>(token: string) {
+    console.log(this._refreshTokenKey);
+
     return this._http.post<D>(
       this._apiRefreshEndpoint,
       { [this._refreshTokenKey]: token }
