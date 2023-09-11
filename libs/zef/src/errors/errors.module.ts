@@ -63,13 +63,13 @@ export class ZefErrorsModule {
       providers: [
         {
           provide: UNIQUE_ERRORS,
-          useValue: config && config.uniqueErrors.length
+          useValue: config && config.uniqueErrors && config.uniqueErrors.length
             ? config.uniqueErrors
             : []
         },
         {
           provide: BLACKLISTED_ERRORS,
-          useValue: config && config.blacklistedErrors.length
+          useValue: config && config.blacklistedErrors && config.blacklistedErrors.length
             ? config.blacklistedErrors
             : []
         }
