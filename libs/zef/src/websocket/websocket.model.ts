@@ -18,4 +18,5 @@ export interface WebsocketConfig {
   tokenNormalizerFn?: (s: any) => { webSocketToken: string; };
   websocketPathNormalizer?: (s: { token?: string; receiverId?: string; }) => string;
   pingPongEnabled?: boolean;
+  pingPongTimer?: number;
 }

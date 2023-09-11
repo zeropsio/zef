@@ -2,7 +2,17 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { WebsocketEffect } from './websocket.effect';
 import { WebsocketConfig } from './websocket.model';
-import { FEATURE_NAME, LOGIN_URL, HOST, API_URL, FORCE_SECURED_ENDPOINT, TOKEN_NORMALIZER, WEBSOCKET_PATH_NORMALIZER, PING_PONG_ENABLED } from './websocket.constant';
+import {
+  FEATURE_NAME,
+  LOGIN_URL,
+  HOST,
+  API_URL,
+  FORCE_SECURED_ENDPOINT,
+  TOKEN_NORMALIZER,
+  WEBSOCKET_PATH_NORMALIZER,
+  PING_PONG_ENABLED,
+  PING_PONG_TIMER
+} from './websocket.constant';
 import { StoreModule } from '@ngrx/store';
 import { websocketReducer } from './websocket.reducer';
 
@@ -46,6 +56,12 @@ export class ZefWebsocketModule {
           useValue: config.pingPongEnabled === undefined
             ? true
             : config.pingPongEnabled
+        },
+        {
+          provide: PING_PONG_TIMER,
+          useValue: config.pingPongTimer === undefined
+            ? 5000
+            : config.pingPongTimer
         },
         {
           provide: TOKEN_NORMALIZER,

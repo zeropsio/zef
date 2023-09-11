@@ -24,7 +24,7 @@ import {
   zefWebsocketTerminate
 } from './websocket.action';
 import { WebsocketApi } from './websocket.api';
-import { PING_PONG_ENABLED } from './websocket.constant';
+import { PING_PONG_ENABLED, PING_PONG_TIMER } from './websocket.constant';
 
 @Injectable()
 export class WebsocketEffect {
@@ -75,7 +75,7 @@ export class WebsocketEffect {
     // the first time, start a 5000ms timer
     ofType(zefWebsocketOpened),
     filter(() => this._pingPongEnabled),
-    switchMap(() => timer(0, 5000).pipe(
+    switchMap(() => timer(0, this._pingPongTimer).pipe(
       // on each timer tick, race between
       // a 3000ms timeout and a websocket
       // message that includes 'pong' response
@@ -108,6 +108,8 @@ export class WebsocketEffect {
     private _actions$: Actions,
     private _api: WebsocketApi,
     @Inject(PING_PONG_ENABLED)
-    private _pingPongEnabled: boolean
+    private _pingPongEnabled: boolean,
+    @Inject(PING_PONG_TIMER)
+    private _pingPongTimer: number
   ) { }
 }
