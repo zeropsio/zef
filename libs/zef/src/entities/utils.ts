@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EntityOps, makeSuccessOp, makeErrorOp } from './operations.constant';
 import isArray from 'lodash-es/isArray';
-import { Action, createSelector } from '@ngrx/store';
+import { Action, createAction, createSelector } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { filter, mergeMap, map, withLatestFrom, switchMap, take } from 'rxjs/operators';
 import { ZefEntitySuccessAction, ZefEntityAction, ZefEntityActionOptions } from './entity-manager.model';
@@ -10,6 +11,7 @@ import { Observable, of } from 'rxjs';
 import { EntityService } from './entity-manager-entity.service';
 import { onWebsocketSubscriptionName } from '../websocket';
 import { showMoreEntities } from './entities.action';
+import { createTag } from './action-creator.service';
 
 export enum MergeStrategy {
   Append = 'append',
@@ -20,6 +22,13 @@ export enum MergeStrategy {
   Merge = 'merge',
   MergeUniq = 'merge-uniq',
   Remove = 'remove'
+}
+
+interface ParsedSubscription {
+  entityName: string;
+  uniqueKey?: string;
+  id?: string;
+  subscriptionType: string;
 }
 
 export function mergeByStrategy(
@@ -94,27 +103,70 @@ export const zefEntitiesSubscriptionsReducer = <S = any>(
   tag?: string
 ): S => {
 
-  const nstate = { ...state };
+  const originalSubscriptions = (state as any).subscriptions;
+
+  const nstate: any = {
+    ...state,
+    subscriptions: {
+      ...originalSubscriptions,
+      list: originalSubscriptions.list ? { ...originalSubscriptions.list } : originalSubscriptions.list,
+      update: originalSubscriptions.update ? { ...originalSubscriptions.update } : originalSubscriptions.update,
+      active: { ...originalSubscriptions.active },
+      mergeStrategies: {
+        list: {
+          ...originalSubscriptions.mergeStrategies.list
+        },
+        update: {
+          ...originalSubscriptions.mergeStrategies.update
+        }
+      },
+      keys: {
+        list: [...originalSubscriptions.keys.list],
+        update: [...originalSubscriptions.keys.update]
+      }
+    }
+  };
 
   const _isEntityOp = (op: any) => isEntityOp(entity, op, action);
 
   const key = getEntityTagKey(entity, tag);
 
   if (_isEntityOp(makeSuccessOp(EntityOps.ListSubscribe))) {
-    if (!nstate['subscriptions']['list']) {
-      nstate['subscriptions']['list'] = {};
+    if (!nstate.subscriptions.list) {
+      nstate.subscriptions.list = {};
     }
-    nstate['subscriptions']['list'][key] = true;
+    if (!nstate.subscriptions.list[key]) {
+      nstate.subscriptions.list[key] = true;
+      nstate.subscriptions.active.list++;
+
+      if (nstate.subscriptions.keys.list.indexOf(key) === -1) {
+        nstate.subscriptions.keys.list.push(key);
+      }
+
+      if (action.originalAction?.meta?.zefListMergeStrategy) {
+        nstate.subscriptions.mergeStrategies.list[key] = action.originalAction?.meta?.zefListMergeStrategy;
+      }
+    }
   }
 
   if (_isEntityOp(makeSuccessOp(EntityOps.UpdateSubscribe))) {
-    if (!nstate['subscriptions']['update']) {
-      nstate['subscriptions']['update'] = {};
+    if (!nstate.subscriptions.update) {
+      nstate.subscriptions.update = {};
     }
-    nstate['subscriptions']['update'][key] = true;
+    if (!nstate.subscriptions.update[key]) {
+      nstate.subscriptions.update[key] = true;
+      nstate.subscriptions.active.update++;
+
+      if (nstate.subscriptions.keys.update.indexOf(key) === -1) {
+        nstate.subscriptions.keys.update.push(key);
+      }
+
+      if (action.originalAction?.meta?.zefEntityMergeStrategy) {
+        nstate.subscriptions.mergeStrategies.update[key] = action.originalAction?.meta?.zefEntityMergeStrategy;
+      }
+    }
   }
 
-  console.log({ state, action, entity, tag, key });
   return nstate;
 }
 
@@ -308,7 +360,11 @@ export const getFeatureNameWithId = (name: string | { name: string; id: string; 
 
   if (isString(name)) { return name; }
 
-  return `${name.name}+${name.id}`;
+  if (name.id) {
+    return `${name.name}+${name.id}`;
+  } else {
+    return `${name.name}`;
+  }
 };
 
 export const getSubscriptionNameForFeature = (
@@ -401,3 +457,98 @@ export const onWebsocketMessageDispatchUpdateEntities = (
     map((message) => entity.updateCache(message.data.update, meta))
   ) as Observable<Action>;
 };
+
+export const parseSubscriptionString = (str: string): ParsedSubscription | null => {
+  const baseRegex = /^(.+)__(.+)__(list-subscription|update-subscription)$/;
+  const simplerRegex = /^(.+)__(list-subscription|update-subscription)$/;
+  let match = str.match(baseRegex);
+
+  if (!match) {
+    match = str.match(simplerRegex);
+    if (match) {
+      const [, entityName, subscriptionType] = match;
+      return {
+        entityName,
+        subscriptionType,
+      };
+    }
+    return null;
+  }
+
+  const [, entityName, uniqueKeyOrId, subscriptionType] = match;
+  const [uniqueKey, id] = uniqueKeyOrId.split('+');
+
+  return {
+    entityName,
+    uniqueKey, // Will be undefined if not present
+    id,        // Will be undefined if not present
+    subscriptionType,
+  };
+};
+
+export const removeFromCacheActionCreator = (
+  entityName: string,
+  op = EntityOps.RemoveFromCache
+) => createAction(
+  createTag(entityName, op),
+  // _ = meta
+  (id: string, _?: Partial<ZefEntityActionOptions>) => ({
+    data: { id },
+    op,
+    entityName
+  })
+);
+
+export const removeIdsFromCacheActionCreator = (
+  entityName: string,
+  op = EntityOps.RemoveIdsFromCache
+) => createAction(
+  createTag(entityName, op),
+  (data: string[], meta?: Partial<ZefEntityActionOptions>, totalHits?: number) => ({
+    data,
+    meta,
+    op,
+    entityName,
+    totalHits
+  })
+);
+
+export const updateCacheActionCreator = <E = any>(
+  entityName: string,
+  op = EntityOps.UpdateCache
+) => createAction(
+  createTag(entityName, op),
+  (data: Partial<E>[], meta?: Partial<ZefEntityActionOptions>) => ({
+    data,
+    meta,
+    op,
+    entityName
+  })
+);
+
+export const addIdsToCacheActionCreator = (
+  entityName: string,
+  op = EntityOps.AddIdsToCache
+) => createAction(
+  createTag(entityName, op),
+  (data: string[], meta?: Partial<ZefEntityActionOptions>, totalHits?: number) => ({
+    data,
+    meta,
+    op,
+    entityName,
+    totalHits
+  })
+);
+
+export const addToCacheActionCreator = <E = any>(
+  entityName: string,
+  op = EntityOps.AddToCache
+) => createAction(
+  createTag(entityName, op),
+  (data: E[], meta?: Partial<ZefEntityActionOptions>) => ({
+    data,
+    meta,
+    op,
+    entityName
+  })
+);

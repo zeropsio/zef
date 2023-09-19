@@ -22,3 +22,7 @@ export const selectEntityListAdditionalInfo = (entityName: string, tag?: string)
   tag
 );
 
+export const selectSubscriptions = createSelector(
+  selectEntitiesState,
+  (s) => s.subscriptions
+)

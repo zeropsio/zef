@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable } from 'rxjs';
 import { ZefActionBase } from '../core';
 import { EntityOps } from './operations.constant';
@@ -5,7 +6,7 @@ import { MergeStrategy } from './utils';
 
 export interface ZefEntitiesState {
   entities: { [key: string]: any; };
-  list: {
+  lists: {
     [key: string]: {
       items: string[],
       totalHits: number,
@@ -13,6 +14,22 @@ export interface ZefEntitiesState {
       limit: number
     };
   };
+  subscriptions: {
+    list: undefined | { [key: string]: boolean; };
+    update: undefined | { [key: string]: boolean; };
+    mergeStrategies: {
+      list: { [key: string]: MergeStrategy; };
+      update: { [key: string]: MergeStrategy; };
+    };
+    active: {
+      list: number;
+      update: number;
+    };
+    keys: {
+      list: string[];
+      update: string[];
+    }
+  }
 }
 
 export interface EntityManagerConfig {

@@ -1,14 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
-import { Actions, createEffect } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { normalize } from 'normalizr';
-import { filter, mergeMap, map, catchError, switchMap, take } from 'rxjs/operators';
+import {
+  filter,
+  mergeMap,
+  map,
+  catchError,
+  switchMap,
+  take,
+  distinctUntilChanged
+} from 'rxjs/operators';
 import { EntityStoreService } from './entity-store.service';
 import { EntityOps, makeSuccessOp, makeErrorOp } from './operations.constant';
 import { createFromAction } from './action-creator.service';
 import { CollectionManagerService, Schema } from './collection-manager.service';
 import { ZefEntityAction, DataService } from './entity-manager.model';
 import isArray from 'lodash-es/isArray';
+import { select, Store } from '@ngrx/store';
+import { zefWebsocketMessage } from '../websocket';
+import { selectSubscriptions } from './entities.selector';
+import {
+  addIdsToCacheActionCreator,
+  getFeatureNameWithId,
+  getSubscriptionNameForFeature,
+  parseSubscriptionString,
+  removeIdsFromCacheActionCreator,
+  updateCacheActionCreator
+} from './utils';
 
 const ENTITY_OPS = [
   EntityOps.AddOne,
@@ -98,6 +118,81 @@ export class EntityManagerEffect {
     })
   ));
 
+  private _onListSubscribeUpdate$ = createEffect(() => this._actions$.pipe(
+    ofType(zefWebsocketMessage),
+    filter((action: any) => action.message && !!action.message.subscriptionName),
+    switchMap((action) => this._store.pipe(
+      select(selectSubscriptions),
+      filter((d) => !!d.active.list || !!d.active.update),
+      distinctUntilChanged((prev, curr) => {
+        return prev.active.list === curr.active.list && prev.active.update === curr.active.update;
+      }),
+      take(1),
+      map((d) => {
+        const { message } = action;
+
+        const {
+          subscriptionType,
+          entityName,
+          id,
+          uniqueKey
+        } = parseSubscriptionString(message.subscriptionName);
+
+        const [ subNameList, subNameUpdate ] = (['list', 'update'] as const).map((key) => getSubscriptionNameForFeature(
+          entityName,
+          key,
+          { name: uniqueKey, id }
+        ));
+
+        if (d.list?.[subNameList] || d.update?.[subNameUpdate]) {
+          return undefined;
+        }
+
+        const tag = getFeatureNameWithId({ name: uniqueKey, id });
+        const tagWithEntity = `${entityName}__${getFeatureNameWithId({ name: uniqueKey, id })}`;
+
+        if (subscriptionType === 'list-subscription') {
+          return [
+            message.data.add && message.data.add.length
+              ? addIdsToCacheActionCreator(entityName)(
+                message.data.add,
+                {
+                  tag,
+                  handleGlobally: true
+                },
+                message.totalHits
+              )
+              : undefined,
+            message.data.delete && message.data.delete.length
+              ? removeIdsFromCacheActionCreator(entityName)(
+                message.data.delete,
+                {
+                  tag,
+                  handleGlobally: true,
+                  zefListMergeStrategy: d.mergeStrategies.list[tagWithEntity]
+                },
+                message.totalHits
+              )
+              : undefined
+          ].filter((itm) => !!itm);
+        }
+
+        if (subscriptionType === 'update-subscription') {
+          return [
+            updateCacheActionCreator(entityName)(
+              message.data.update,
+              { zefEntityMergeStrategy: d.mergeStrategies.update[tagWithEntity] }
+            )
+          ];
+        }
+
+        return undefined;
+      })
+    )),
+    filter((d) => !!d),
+    mergeMap((d) => d)
+  ));
+
   private _onAddToCache$ = createEffect(() => this._actions$.pipe(
     filter((action) => !!action.entityName),
     filter((action) => action.op === EntityOps.AddToCache),
@@ -129,7 +224,8 @@ export class EntityManagerEffect {
   constructor(
     private _actions$: Actions<ZefEntityAction>,
     private _dataService: EntityStoreService,
-    private _collectionManager: CollectionManagerService
+    private _collectionManager: CollectionManagerService,
+    private _store: Store<any>
   ) { }
 
   private _entityOfApiCall(

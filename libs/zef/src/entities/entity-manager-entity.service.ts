@@ -11,7 +11,7 @@ import { ZefErrorConfig } from '../errors/errors.model';
 import { ZefEntityAction, ZefEntityActionOptions } from './entity-manager.model';
 import { ZefProgressConfig } from '../progress/progress.model';
 import { ZefWebsocketService } from '../websocket';
-import { getSubscriptionNameForFeature, getFeatureNameWithId } from './utils';
+import { getSubscriptionNameForFeature, getFeatureNameWithId, addToCacheActionCreator, addIdsToCacheActionCreator, updateCacheActionCreator, removeFromCacheActionCreator, removeIdsFromCacheActionCreator } from './utils';
 import { EntityOps } from './operations.constant';
 import { createTag } from './action-creator.service';
 import { selectEntities, selectEntityList, selectEntityListAdditionalInfo } from './entities.selector';
@@ -219,57 +219,53 @@ export class EntityService<E, A = E, U = E> {
     )
   );
 
-  addToCache = createAction(
-    createTag(this.entityName, EntityOps.AddToCache),
-    (data: E[], meta?: Partial<ZefEntityActionOptions>) => ({
-      data,
-      meta,
-      op: EntityOps.AddToCache,
-      entityName: this.entityName
-    })
-  );
+  addToCache = addToCacheActionCreator<E>(this.entityName);
+  addIdsToCache = addIdsToCacheActionCreator(this.entityName);
+  updateCache = updateCacheActionCreator<E>(this.entityName);
+  removeFromCache = removeFromCacheActionCreator(this.entityName);
+  removeIdsFromCache = removeIdsFromCacheActionCreator(this.entityName);
 
-  addIdsToCache = createAction(
-    createTag(this.entityName, EntityOps.AddIdsToCache),
-    (data: string[], meta?: Partial<ZefEntityActionOptions>, totalHits?: number) => ({
-      data,
-      meta,
-      op: EntityOps.AddIdsToCache,
-      entityName: this.entityName,
-      totalHits
-    })
-  );
+  // addIdsToCache = createAction(
+  //   createTag(this.entityName, EntityOps.AddIdsToCache),
+  //   (data: string[], meta?: Partial<ZefEntityActionOptions>, totalHits?: number) => ({
+  //     data,
+  //     meta,
+  //     op: EntityOps.AddIdsToCache,
+  //     entityName: this.entityName,
+  //     totalHits
+  //   })
+  // );
 
-  updateCache = createAction(
-    createTag(this.entityName, EntityOps.UpdateCache),
-    (data: Partial<E>[], meta?: Partial<ZefEntityActionOptions>) => ({
-      data,
-      meta,
-      op: EntityOps.UpdateCache,
-      entityName: this.entityName
-    })
-  );
+  // updateCache = createAction(
+  //   createTag(this.entityName, EntityOps.UpdateCache),
+  //   (data: Partial<E>[], meta?: Partial<ZefEntityActionOptions>) => ({
+  //     data,
+  //     meta,
+  //     op: EntityOps.UpdateCache,
+  //     entityName: this.entityName
+  //   })
+  // );
 
-  removeFromCache = createAction(
-    createTag(this.entityName, EntityOps.RemoveFromCache),
-    // _ = meta
-    (id: string, _?: Partial<ZefEntityActionOptions>) => ({
-      data: { id },
-      op: EntityOps.RemoveFromCache,
-      entityName: this.entityName
-    })
-  );
+  // removeFromCache = createAction(
+  //   createTag(this.entityName, EntityOps.RemoveFromCache),
+  //   // _ = meta
+  //   (id: string, _?: Partial<ZefEntityActionOptions>) => ({
+  //     data: { id },
+  //     op: EntityOps.RemoveFromCache,
+  //     entityName: this.entityName
+  //   })
+  // );
 
-  removeIdsFromCache = createAction(
-    createTag(this.entityName, EntityOps.RemoveIdsFromCache),
-    (data: string[], meta?: Partial<ZefEntityActionOptions>, totalHits?: number) => ({
-      data,
-      meta,
-      op: EntityOps.RemoveIdsFromCache,
-      entityName: this.entityName,
-      totalHits
-    })
-  );
+  // removeIdsFromCache = createAction(
+  //   createTag(this.entityName, EntityOps.RemoveIdsFromCache),
+  //   (data: string[], meta?: Partial<ZefEntityActionOptions>, totalHits?: number) => ({
+  //     data,
+  //     meta,
+  //     op: EntityOps.RemoveIdsFromCache,
+  //     entityName: this.entityName,
+  //     totalHits
+  //   })
+  // );
 
   listReset = createAction(
     createTag(this.entityName, EntityOps.ListReset),

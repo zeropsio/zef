@@ -3,18 +3,33 @@ import mergeWith from 'lodash-es/mergeWith';
 import isString from 'lodash-es/isString';
 import {
   zefEntitiesListReducer,
-  zefListKey,
   MergeStrategy,
   mergeByStrategy,
   getEntityTagKey,
   zefEntitiesSubscriptionsReducer,
 } from './utils';
 import { EntityOps } from './operations.constant';
+import { ZefEntitiesState } from './entity-manager.model';
 
-const initialState = {
+const initialState: ZefEntitiesState = {
   entities: {},
-  [zefListKey]: {},
-  subscriptions: {}
+  lists: {},
+  subscriptions: {
+    list: undefined,
+    update: undefined,
+    mergeStrategies: {
+      list: {},
+      update: {}
+    },
+    active: {
+      list: 0,
+      update: 0
+    },
+    keys: {
+      list: [],
+      update: []
+    }
+  }
 };
 
 export function reducer(

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { filter, map } from 'rxjs/operators';
 import { Observable, OperatorFunction } from 'rxjs';
 import { zefWebsocketMessage } from './websocket.action';
