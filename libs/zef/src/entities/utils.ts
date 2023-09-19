@@ -85,7 +85,38 @@ export const errorOf = <D>(
   action: Action,
 ) => filter((a: ZefEntityAction<D>) => a.type === makeErrorOp(action.type));
 
-export const zefListKey = 'zefEntitiesList';
+export const zefListKey = 'lists';
+
+export const zefEntitiesSubscriptionsReducer = <S = any>(
+  state: S,
+  action: ZefEntityAction,
+  entity: string,
+  tag?: string
+): S => {
+
+  const nstate = { ...state };
+
+  const _isEntityOp = (op: any) => isEntityOp(entity, op, action);
+
+  const key = getEntityTagKey(entity, tag);
+
+  if (_isEntityOp(makeSuccessOp(EntityOps.ListSubscribe))) {
+    if (!nstate['subscriptions']['list']) {
+      nstate['subscriptions']['list'] = {};
+    }
+    nstate['subscriptions']['list'][key] = true;
+  }
+
+  if (_isEntityOp(makeSuccessOp(EntityOps.UpdateSubscribe))) {
+    if (!nstate['subscriptions']['update']) {
+      nstate['subscriptions']['update'] = {};
+    }
+    nstate['subscriptions']['update'][key] = true;
+  }
+
+  console.log({ state, action, entity, tag, key });
+  return nstate;
+}
 
 // u add a delete, dělat jen pokud existuje merge
 // merge jako takovej

@@ -7,12 +7,14 @@ import {
   MergeStrategy,
   mergeByStrategy,
   getEntityTagKey,
+  zefEntitiesSubscriptionsReducer,
 } from './utils';
 import { EntityOps } from './operations.constant';
 
 const initialState = {
   entities: {},
-  [zefListKey]: {}
+  [zefListKey]: {},
+  subscriptions: {}
 };
 
 export function reducer(
@@ -35,8 +37,8 @@ export function reducer(
     const key = getEntityTagKey(action.entityName, action.tag);
     state = {
       ...state,
-      zefEntitiesList: {
-        ...state.zefEntitiesList,
+      lists: {
+        ...state.lists,
         [key]: {
           items: [],
           limit: undefined,
@@ -46,6 +48,20 @@ export function reducer(
       }
     };
   }
+
+  state = zefEntitiesSubscriptionsReducer(
+    state,
+    action,
+    action.entityName,
+    // TODO: refactor to a flag on *any* request?
+    action.originalAction
+      ? action.originalAction.meta && action.originalAction.meta.handleGlobally
+        ? action.originalAction.meta.tag
+        : undefined
+      : action.meta && action.meta.handleGlobally
+        ? action.meta.tag
+        : undefined
+  );
 
   state = zefEntitiesListReducer(
     state,
