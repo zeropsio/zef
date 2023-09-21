@@ -1,6 +1,6 @@
 {
   "name": "@zerops/zef",
-  "version": "0.2.7-alpha.27",
+  "version": "0.2.7-alpha.30",
   "peerDependencies": {
     "@angular/common": ">=14.0.0",
     "@angular/material": ">=14.0.0",

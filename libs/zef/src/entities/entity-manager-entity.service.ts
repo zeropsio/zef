@@ -281,7 +281,8 @@ export class EntityService<E, A = E, U = E> {
   private _entities$ = this._store.pipe(select(selectEntities));
 
   constructor(
-    public readonly entityName: string
+    public readonly entityName: string,
+    public readonly significantId?: string
   ) {
     this._schema$ = this._collectionManager.getSchema$(this.entityName);
   }
@@ -392,7 +393,7 @@ export class EntityService<E, A = E, U = E> {
     if (!clientId) { return undefined; }
     if (isString(clientId)) {
       return {
-        name: 'clientId',
+        name: this.significantId ? this.significantId : 'clientId',
         operator: 'eq',
         value: clientId
       };
