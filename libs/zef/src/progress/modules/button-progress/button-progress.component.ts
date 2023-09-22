@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -20,6 +21,7 @@ export class ButtonProgressComponent {
     if (this.buttonRef) {
       setTimeout(() => {
         this.buttonRef.disabled = this.active;
+        this._cdRef.markForCheck();
       });
     }
   }
@@ -31,5 +33,7 @@ export class ButtonProgressComponent {
   buttonRef: MatButton;
 
   private _active: boolean;
+
+  constructor(private _cdRef: ChangeDetectorRef) { }
 
 }
