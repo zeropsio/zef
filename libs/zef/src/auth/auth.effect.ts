@@ -73,6 +73,8 @@ export class AuthEffect {
 
   private _onApiLogoutRemoveStoredToken$ = createEffect(() => this._actions$.pipe(
     ofType(zefApiLogout),
+    // delay needed to let api trigger with auth header
+    delay(50),
     tap(() => this._tokenStorage.removeToken())
   ), { dispatch: false });
 
