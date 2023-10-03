@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, catchError, switchMap, tap } from 'rxjs/operators';
+import { map, catchError, switchMap, tap, delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ZefAuthApi } from './auth.api';
 import {
@@ -71,6 +71,14 @@ export class AuthEffect {
     tap(() => this._tokenStorage.removeToken()),
     map(() => zefApiLogout())
   ));
+
+  private _onLogoutRemoveStoredToken$ = createEffect(() => this._actions$.pipe(
+    ofType(zefLogout),
+    // delay needed to let API do the logout call with
+    // auth header still
+    delay(10),
+    tap(() => this._tokenStorage.removeToken())
+  ), { dispatch: false });
 
   private _onApiLogout$ = createEffect(() => this._actions$.pipe(
     ofType(zefApiLogout),
