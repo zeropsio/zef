@@ -125,6 +125,20 @@ export class EntityService<E, A = E, U = E> {
     )
   );
 
+  suggest = createAction(
+    createTag(this.entityName, EntityOps.Suggest),
+    (
+      data?: any,
+      meta?: Partial<ZefEntityActionOptions>,
+      errorsConfig?: Partial<ZefErrorConfig>
+    ) => this._actionCreator(
+      data,
+      EntityOps.Suggest,
+      meta,
+      errorsConfig
+    )
+  );
+
   subscribe = createAction(
     createTag(this.entityName, EntityOps.Subscribe),
     (

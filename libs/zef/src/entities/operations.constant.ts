@@ -19,6 +19,10 @@ export enum EntityOps {
   SearchAllSuccess = 'search-all/success',
   SearchAllError = 'search-all/error',
 
+  Suggest = 'suggest',
+  SuggestSuccess = 'suggest/success',
+  SuggestError = 'suggest/error',
+
   Subscribe = 'subscribe',
   SubscribeSuccess = 'subscribe/success',
   SubscribeError = 'subscribe/error',

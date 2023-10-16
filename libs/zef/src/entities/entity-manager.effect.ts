@@ -78,6 +78,26 @@ export class EntityManagerEffect {
     })
   ));
 
+  private _onSuggest$ = createEffect(() => this._actions$.pipe(
+    filter((action) => !!action.entityName),
+    filter((action) => action.op === EntityOps.Suggest),
+    switchMap((action) => {
+      const { entityName, /* data */ } = action;
+
+      const service = this._dataService.getService(entityName);
+
+      return service.suggest().pipe(
+        map(() => createFromAction(action, {
+          op: makeSuccessOp(action.op)
+        }),
+        catchError((err) => of(createFromAction(action, {
+          op: makeErrorOp(action.op),
+          meta: { zefError: err }
+        })))
+      ));
+    })
+  ));
+
   private _onSubscribe$ = createEffect(() => this._actions$.pipe(
     filter((action) => !!action.entityName),
     filter((action) => action.op === EntityOps.Subscribe),

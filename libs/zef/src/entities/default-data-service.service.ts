@@ -47,6 +47,13 @@ export class DefaultDataService<T> implements DataService<T> {
     );
   }
 
+  suggest() {
+    return this._http.post<any>(
+      `${this._apiPrefix}/${this.entityName}/suggest`,
+      {}
+    );
+  }
+
   getById(id: string) {
     return this._http.get<T>(`${this._apiPrefix}/${this.entityName}/${id}`);
   }

@@ -76,6 +76,7 @@ export interface DataService<T> {
   add(entity: T, meta?: any): Observable<T>;
   delete(id: string, meta?: any): Observable<string>;
   getAll(data: any, meta?: any): Observable<T[]>;
+  suggest(): Observable<any>;
   searchAll(data: any, meta?: any): Observable<{ items: T[] }>;
   getById(id: any, meta?: any): Observable<T>;
   getWithQuery(params: QueryParams | string, meta?: any): Observable<T[]>;
