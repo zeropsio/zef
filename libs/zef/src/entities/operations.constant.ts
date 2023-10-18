@@ -55,6 +55,7 @@ export enum EntityOps {
   UpdateCacheDone = 'update-cache/done',
 
   ListReset = 'list-reset',
+  SuggestReset = 'suggest-reset'
 }
 
 export const OP_SUCCESS = '/success';

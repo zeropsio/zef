@@ -47,10 +47,15 @@ export class DefaultDataService<T> implements DataService<T> {
     );
   }
 
-  suggest() {
+  suggest(text: string, search: any[], column?: string, source?: boolean) {
     return this._http.post<any>(
       `${this._apiPrefix}/${this.entityName}/suggest`,
-      {}
+      {
+        text,
+        source,
+        search,
+        column
+      }
     );
   }
 

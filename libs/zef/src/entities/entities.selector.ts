@@ -26,3 +26,8 @@ export const selectSubscriptions = createSelector(
   selectEntitiesState,
   (s) => s.subscriptions
 )
+
+export const selectSuggests = createSelector(
+  selectEntitiesState,
+  (s) => s.suggests
+)

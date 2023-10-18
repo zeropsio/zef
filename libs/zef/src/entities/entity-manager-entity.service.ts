@@ -11,10 +11,10 @@ import { ZefErrorConfig } from '../errors/errors.model';
 import { ZefEntityAction, ZefEntityActionOptions } from './entity-manager.model';
 import { ZefProgressConfig } from '../progress/progress.model';
 import { ZefWebsocketService } from '../websocket';
-import { getSubscriptionNameForFeature, getFeatureNameWithId, addToCacheActionCreator, addIdsToCacheActionCreator, updateCacheActionCreator, removeFromCacheActionCreator, removeIdsFromCacheActionCreator } from './utils';
+import { getSubscriptionNameForFeature, getFeatureNameWithId, addToCacheActionCreator, addIdsToCacheActionCreator, updateCacheActionCreator, removeFromCacheActionCreator, removeIdsFromCacheActionCreator, getEntityTagKey } from './utils';
 import { EntityOps } from './operations.constant';
 import { createTag } from './action-creator.service';
-import { selectEntities, selectEntityList, selectEntityListAdditionalInfo } from './entities.selector';
+import { selectEntities, selectEntityList, selectEntityListAdditionalInfo, selectSuggests } from './entities.selector';
 import { CollectionManagerService } from './collection-manager.service';
 import { inject } from '@angular/core';
 
@@ -290,6 +290,15 @@ export class EntityService<E, A = E, U = E> {
     })
   );
 
+  suggestionReset = createAction(
+    createTag(this.entityName, EntityOps.SuggestReset),
+    (tag?: string | { name: string; id: string; }) => ({
+      tag,
+      op: EntityOps.SuggestReset,
+      entityName: this.entityName
+    })
+  );
+
   private _schema$: Observable<any>;
 
   private _entities$ = this._store.pipe(select(selectEntities));
@@ -391,6 +400,16 @@ export class EntityService<E, A = E, U = E> {
 
         return this._denormalize(ids, entities, entSchema);
       }),
+      distinctUntilChanged()
+    );
+  }
+
+  suggests$(
+    tag?: string
+  ) {
+    return this._store.pipe(
+      select(selectSuggests),
+      map((d) => d[getEntityTagKey(this.entityName, tag)]),
       distinctUntilChanged()
     );
   }

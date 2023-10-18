@@ -82,13 +82,19 @@ export class EntityManagerEffect {
     filter((action) => !!action.entityName),
     filter((action) => action.op === EntityOps.Suggest),
     switchMap((action) => {
-      const { entityName, /* data */ } = action;
+      const { entityName, data } = action;
 
       const service = this._dataService.getService(entityName);
 
-      return service.suggest().pipe(
-        map(() => createFromAction(action, {
-          op: makeSuccessOp(action.op)
+      return service.suggest(
+        data.text,
+        data.search,
+        data.column,
+        data.source
+      ).pipe(
+        map((res) => createFromAction(action, {
+          op: makeSuccessOp(action.op),
+          data: res.items
         }),
         catchError((err) => of(createFromAction(action, {
           op: makeErrorOp(action.op),

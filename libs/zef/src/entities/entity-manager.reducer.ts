@@ -14,6 +14,7 @@ import { ZefEntitiesState } from './entity-manager.model';
 const initialState: ZefEntitiesState = {
   entities: {},
   lists: {},
+  suggests: {},
   subscriptions: {
     list: undefined,
     update: undefined,
@@ -60,6 +61,28 @@ export function reducer(
           offset: undefined,
           totalHits: undefined
         }
+      }
+    };
+  }
+
+  if (action.op === EntityOps.SuggestSuccess && action.entityName) {
+    const key = getEntityTagKey(action.entityName, action.originalAction?.meta?.tag);
+    state = {
+      ...state,
+      suggests: {
+        ...state.suggests,
+        [key]: action.data
+      }
+    };
+  }
+
+  if (action.op === EntityOps.SuggestReset && action.entityName) {
+    const key = getEntityTagKey(action.entityName, action.tag);
+    state = {
+      ...state,
+      suggests: {
+        ...state.suggests,
+        [key]: undefined
       }
     };
   }
