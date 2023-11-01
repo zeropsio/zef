@@ -1,7 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
-import { StoreModule } from '@ngrx/store';
+import { provideState, StoreModule } from '@ngrx/store';
+
 import { NgrxDialogCloseModule, NgrxDialogOpenModule } from './modules';
 import { DialogComponent } from './dialog.component';
 import { dialogReducer } from './dialog.reducer';
@@ -9,7 +10,7 @@ import { FEATURE_NAME } from './dialog.constant';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(FEATURE_NAME, dialogReducer)
+    // StoreModule.forFeature(FEATURE_NAME, dialogReducer)
   ]
 })
 export class ZefDialogRootModule {
@@ -30,7 +31,10 @@ export class ZefDialogRootModule {
 export class ZefDialogModule {
   static forRoot(): ModuleWithProviders<ZefDialogRootModule> {
     return {
-      ngModule: ZefDialogRootModule
+      ngModule: ZefDialogRootModule,
+      providers: [
+        provideState(FEATURE_NAME, dialogReducer)
+      ]
     };
   }
 }

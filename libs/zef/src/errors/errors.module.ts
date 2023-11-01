@@ -1,8 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { provideState, StoreModule } from '@ngrx/store';
+import { provideEffects, EffectsModule } from '@ngrx/effects';
+
 import {
   ZefSnackErrorModule,
   ZefPopErrorModule,
@@ -23,8 +24,8 @@ import { ZefErrorRootConfig } from './errors.model';
 @NgModule({
   imports: [
     MatSnackBarModule,
-    StoreModule.forFeature(FEATURE_NAME, errorsReducer),
-    EffectsModule.forFeature([ ErrorsEffect ])
+    // StoreModule.forFeature(FEATURE_NAME, errorsReducer),
+    // EffectsModule.forFeature([ ErrorsEffect ])
   ],
   providers: [
     {
@@ -61,6 +62,8 @@ export class ZefErrorsModule {
     return {
       ngModule: ZefErrorsRootModule,
       providers: [
+        provideState(FEATURE_NAME, errorsReducer),
+        provideEffects(ErrorsEffect),
         {
           provide: UNIQUE_ERRORS,
           useValue: config && config.uniqueErrors && config.uniqueErrors.length

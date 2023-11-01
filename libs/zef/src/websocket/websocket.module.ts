@@ -1,5 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
+import { provideState, StoreModule } from '@ngrx/store';
+import { provideEffects, EffectsModule } from '@ngrx/effects';
+
 import { WebsocketEffect } from './websocket.effect';
 import { WebsocketConfig } from './websocket.model';
 import {
@@ -13,16 +15,12 @@ import {
   PING_PONG_ENABLED,
   PING_PONG_TIMER
 } from './websocket.constant';
-import { StoreModule } from '@ngrx/store';
 import { websocketReducer } from './websocket.reducer';
 
 @NgModule({
   imports: [
-    EffectsModule.forFeature([ WebsocketEffect ]),
-    StoreModule.forFeature(
-      FEATURE_NAME,
-      websocketReducer
-    )
+    // StoreModule.forFeature(FEATURE_NAME, websocketReducer),
+    // EffectsModule.forFeature([ WebsocketEffect ])
   ]
 })
 export class ZefWebsocketRootModule {
@@ -35,6 +33,9 @@ export class ZefWebsocketModule {
     return {
       ngModule: ZefWebsocketRootModule,
       providers: [
+        provideState(FEATURE_NAME, websocketReducer),
+        provideEffects(WebsocketEffect),
+
         {
           provide: LOGIN_URL,
           useValue: config.loginUrl

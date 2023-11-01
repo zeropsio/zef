@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { StoreModule, ActionReducer } from '@ngrx/store';
+import { provideState, StoreModule, ActionReducer } from '@ngrx/store';
 import { NgrxFormsModule } from 'ngrx-forms';
+
 import {
   NgrxFormsExtensionsModule,
   ZefFormModule,
@@ -22,10 +23,7 @@ export function formsReducerFactory(
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(
-      FEATURE_NAME,
-      FORMS_REDUCER_TOKEN
-    )
+    // StoreModule.forFeature(FEATURE_NAME, FORMS_REDUCER_TOKEN)
   ],
   providers: [
     {
@@ -53,7 +51,10 @@ export class ZefFormsRootModule { }
 export class ZefFormsModule {
   static forRoot(): ModuleWithProviders<ZefFormsRootModule> {
     return {
-      ngModule: ZefFormsRootModule
+      ngModule: ZefFormsRootModule,
+      providers: [
+        provideState(FEATURE_NAME, FORMS_REDUCER_TOKEN)
+      ]
     };
   }
 }

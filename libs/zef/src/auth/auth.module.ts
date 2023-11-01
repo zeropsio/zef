@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { provideState, StoreModule } from '@ngrx/store';
+import { provideEffects, EffectsModule } from '@ngrx/effects';
+
 import {
   FEATURE_NAME,
   TOKEN_DATA_GETTER,
@@ -16,8 +17,8 @@ import { authTokenInterceptorProvider } from './auth-token.interceptor';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(FEATURE_NAME, authReducer),
-    EffectsModule.forFeature([ AuthEffect ])
+    // StoreModule.forFeature(FEATURE_NAME, authReducer),
+    // EffectsModule.forFeature([ AuthEffect ])
   ]
 })
 export class ZefAuthRootModule {
@@ -34,6 +35,8 @@ export class ZefAuthModule {
     return {
       ngModule: ZefAuthRootModule,
       providers: [
+        provideState(FEATURE_NAME, authReducer),
+        provideEffects(AuthEffect),
         {
           provide: TOKEN_DATA_GETTER,
           useValue: config && config.tokenDataGetter

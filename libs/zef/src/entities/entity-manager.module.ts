@@ -1,7 +1,8 @@
 import { NgModule, ModuleWithProviders, Inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { provideState, StoreModule } from '@ngrx/store';
+import { provideEffects, EffectsModule } from '@ngrx/effects';
+
 import { METADATA_TOKEN, FEATURE_NAME, API_PREFIX } from './constants';
 import { EntityManagerConfig } from './entity-manager.model';
 import { reducer } from './entity-manager.reducer';
@@ -11,8 +12,8 @@ import { EntityManagerEffect } from './entity-manager.effect';
 @NgModule({
   imports: [
     HttpClientModule,
-    StoreModule.forFeature(FEATURE_NAME, reducer),
-    EffectsModule.forFeature([ EntityManagerEffect ])
+    // StoreModule.forFeature(FEATURE_NAME, reducer),
+    // EffectsModule.forFeature([ EntityManagerEffect ])
   ]
 })
 export class ZefEntitiesModule {
@@ -20,6 +21,8 @@ export class ZefEntitiesModule {
     return {
       ngModule: ZefEntitiesModule,
       providers: [
+        provideState(FEATURE_NAME, reducer),
+        provideEffects(EntityManagerEffect),
         {
           provide: METADATA_TOKEN,
           useValue: config?.metadata

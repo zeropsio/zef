@@ -1,20 +1,16 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { ZEF_GITHUB_API_URL, ZEF_GITHUB_CALLBACK_URL, ZEF_GITHUB_FEATURE_NAME } from './github.constant';
+import { provideState, StoreModule } from '@ngrx/store';
+import { provideEffects, EffectsModule } from '@ngrx/effects';
+
 import { ZefGithubConfig } from './github.model';
-import { EffectsModule } from '@ngrx/effects';
 import { ZefGithubEffect } from './github.effect';
-import { StoreModule } from '@ngrx/store';
 import { githubReducer } from './github.reducer';
+import { ZEF_GITHUB_API_URL, ZEF_GITHUB_CALLBACK_URL, ZEF_GITHUB_FEATURE_NAME } from './github.constant';
 
 @NgModule({
   imports: [
-    EffectsModule.forFeature([
-      ZefGithubEffect
-    ]),
-    StoreModule.forFeature(
-      ZEF_GITHUB_FEATURE_NAME,
-      githubReducer
-    )
+    // StoreModule.forFeature(ZEF_GITHUB_FEATURE_NAME, githubReducer),
+    // EffectsModule.forFeature([ ZefGithubEffect ])
   ]
 })
 export class ZefGithubModule {
@@ -22,6 +18,8 @@ export class ZefGithubModule {
     return {
       ngModule: ZefGithubModule,
       providers: [
+        provideState(ZEF_GITHUB_FEATURE_NAME, githubReducer),
+        provideEffects(ZefGithubEffect),
         {
           provide: ZEF_GITHUB_CALLBACK_URL,
           useValue: config?.callbackUrl
