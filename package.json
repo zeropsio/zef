@@ -8,7 +8,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "publish": "npm run build zef && cd ./dist/libs/zef && npm publish --access=public"
+    "publish": "rm -rf dist && npm run build zef && cd ./dist/libs/zef && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
