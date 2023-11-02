@@ -1,6 +1,6 @@
 {
   "name": "@zerops/zef",
-  "version": "0.2.25",
+  "version": "0.2.26",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
