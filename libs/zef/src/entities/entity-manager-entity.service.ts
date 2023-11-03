@@ -128,11 +128,20 @@ export class EntityService<E, A = E, U = E> {
   suggest = createAction(
     createTag(this.entityName, EntityOps.Suggest),
     (
+      id: string | { clientId: string; name: string; },
       data?: any,
       meta?: Partial<ZefEntityActionOptions>,
       errorsConfig?: Partial<ZefErrorConfig>
     ) => this._actionCreator(
-      data,
+      {
+        ...data,
+        search: data && data.search
+          ? [
+            ...data.search,
+            this._getClientIdSearchObject(id)
+          ].filter((d) => d !== undefined)
+          : [ this._getClientIdSearchObject(id) ],
+      },
       EntityOps.Suggest,
       meta,
       errorsConfig
