@@ -65,6 +65,17 @@ export function reducer(
     };
   }
 
+  if (action.op === EntityOps.Suggest && action.entityName && !!action?.meta?.resetOnRequest) {
+    const key = getEntityTagKey(action.entityName, action?.meta?.tag);
+    state = {
+      ...state,
+      suggests: {
+        ...state.suggests,
+        [key]: undefined
+      }
+    };
+  }
+
   if (action.op === EntityOps.SuggestSuccess && action.entityName) {
     const key = getEntityTagKey(action.entityName, action.originalAction?.meta?.tag);
     state = {
