@@ -90,6 +90,7 @@ export class EntityManagerEffect {
         data.text,
         data.search,
         data.column,
+        data.limit,
         data.source
       ).pipe(
         map((res) => createFromAction(action, {

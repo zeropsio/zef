@@ -15,14 +15,7 @@ export interface ZefEntitiesState {
     };
   };
   suggests: {
-    [key: string]: {
-      column: string;
-      id: string;
-      score: number;
-      text: string;
-      textHighlight: string;
-      title: string;
-    }[];
+    [key: string]: ZefEntitySuggestResponse[];
   };
   subscriptions: {
     list: undefined | { [key: string]: boolean; };
@@ -86,7 +79,7 @@ export interface DataService<T> {
   add(entity: T, meta?: any): Observable<T>;
   delete(id: string, meta?: any): Observable<string>;
   getAll(data: any, meta?: any): Observable<T[]>;
-  suggest(text: string, search: any[], column?: string, source?: boolean): Observable<any>;
+  suggest(text: string, search: any[], column?: string, limit?: number, source?: boolean): Observable<any>;
   searchAll(data: any, meta?: any): Observable<{ items: T[] }>;
   getById(id: any, meta?: any): Observable<T>;
   getWithQuery(params: QueryParams | string, meta?: any): Observable<T[]>;
@@ -98,4 +91,14 @@ export interface ListAdditionalInfo {
   totalHits: number;
   offset: number;
   limit: number;
+}
+
+export interface ZefEntitySuggestResponse {
+  column: string;
+  id: string;
+  source?: any;
+  score: number;
+  text: string;
+  textHighlight: string;
+  title: string;
 }
