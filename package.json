@@ -27,6 +27,7 @@
     "@ngrx/router-store": "16.0.1",
     "@ngrx/store": "16.0.1",
     "@nx/angular": "16.5.3",
+    "@zerops/zef": "^0.3.1",
     "animated-scroll-to": "^2.3.0",
     "lodash-es": "^4.17.21",
     "ngrx-forms": "^8.0.0",
