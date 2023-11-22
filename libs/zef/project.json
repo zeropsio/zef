@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/zef"],
       "options": {
-        "project": "libs/zef/ng-package.json"
+        "project": "libs/zef/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -25,12 +26,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/zef"],
       "options": {
-        "jestConfig": "libs/zef/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/zef/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/zef/src/**/*.ts", "libs/zef/src/**/*.html"]
       }

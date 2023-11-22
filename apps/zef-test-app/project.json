@@ -59,10 +59,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "zef-test-app:build:production"
+          "buildTarget": "zef-test-app:build:production"
         },
         "development": {
-          "browserTarget": "zef-test-app:build:development"
+          "buildTarget": "zef-test-app:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,11 +70,11 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "zef-test-app:build"
+        "buildTarget": "zef-test-app:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "apps/zef-test-app/src/**/*.ts",
@@ -86,8 +86,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/zef-test-app"],
       "options": {
-        "jestConfig": "apps/zef-test-app/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/zef-test-app/jest.config.ts"
       }
     }
   },
