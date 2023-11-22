@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/zef"],
       "options": {
-        "project": "libs/zef/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/zef/ng-package.json"
       },
       "configurations": {
         "production": {
