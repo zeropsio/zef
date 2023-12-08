@@ -148,7 +148,7 @@ export class EntityManagerEffect {
   private _onListSubscribeUpdate$ = createEffect(() => this._actions$.pipe(
     ofType(zefWebsocketMessage),
     filter((action: any) => action.message && !!action.message.subscriptionName),
-    switchMap((action) => this._store.pipe(
+    mergeMap((action) => this._store.pipe(
       select(selectSubscriptions),
       filter((d) => !!d.active.list || !!d.active.update),
       distinctUntilChanged((prev, curr) => {
