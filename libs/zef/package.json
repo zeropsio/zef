@@ -1,13 +1,13 @@
 {
   "name": "@zerops/zef",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "peerDependencies": {
     "@angular/animations": ">=17.1.2",
-    "@angular/cdk": ">=17.1.2",
+    "@angular/cdk": ">=16.2.12",
     "@angular/common": ">=17.1.2",
     "@angular/core": ">=17.1.2",
     "@angular/forms": ">=17.1.2",
-    "@angular/material": ">=14.0.0",
+    "@angular/material": ">=16.2.12",
     "@angular/platform-browser": ">=17.1.2",
     "@angular/router": ">=17.1.2",
     "@juggle/resize-observer": ">=3.0.0",
