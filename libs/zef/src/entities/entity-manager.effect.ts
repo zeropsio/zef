@@ -208,7 +208,7 @@ export class EntityManagerEffect {
           return [
             updateCacheActionCreator(entityName)(
               message.data.update,
-              { zefEntityMergeStrategy: d.mergeStrategies.update[tag] }
+              { zefEntityMergeStrategy: d.mergeStrategies.update[entityName] }
             )
           ];
         }
